@@ -66,10 +66,5 @@ excerpt_separator: "\n\n\n\n"
 gems: [jekyll-paginate]
 paginate: 6
 
-theme: minima
-gems:
-  - jekyll-feed
-exclude:
-  - Gemfile
-  - Gemfile.lock
+
 
