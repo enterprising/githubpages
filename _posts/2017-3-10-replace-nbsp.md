@@ -11,6 +11,7 @@ tags: [剑指Offer]
 
 # 思路1 空间复杂度较高的一种方法
 > 从前往后遍历替换，用到StringBuffer（线程安全）。
+
 ## 代码：
 ```java
 public class Solution {
@@ -28,8 +29,10 @@ public class Solution {
  }
 
 ```
+
 # 思路2 足够拿到Offer的一种方法
 > 从后往前。 先遍历一遍整个字符串，统计出空格的总数，之后再重新给字符串长度赋值。从后往前遍历，遇到空格依次插入要加的字符串。
+
 ## 代码：
 ```java
 public class Solution {
