@@ -8,8 +8,12 @@ tags: [数据库]
 
 
 # 若要删除book表中的所有数据，如下哪些语法是错误的？
-![1]
-  
+> 正确答案: A D   你的答案: A D (正确)
+		drop table book;
+		truncate table book;
+		delete from book;
+		delelet *from book;
+
 正确的答案是A和D。
 先说说BC，
 truncate table book; 删除表中所有数据
