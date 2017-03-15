@@ -100,11 +100,12 @@ public class Client {
 ```
 ## 运行效果
 > 服务器端开着，然后运行客户端程序
+
 ### 服务器端显示：
 ![enter description here][1]
 
 
-  ### 客户端显示：
+### 客户端显示：
   ![enter description here][2]
 
 
