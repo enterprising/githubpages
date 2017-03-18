@@ -10,21 +10,25 @@ type: page
 {:toc}
 
 ## 关于我
-　　我是**张家城**，江湖自称**兰缘小妖(LanyuanXiaoyao)**，就读**湖南工业大学计算机科学与技术**专业，凭借对编程的热情一路摸索，Java|Android|JSP|C|C++|Python|JavaScript……等均有涉猎，当然能拿得出手的就只有**Java|Android|JSP**，其他的也是曾经用过，有过研究。现在一心扑在刷**LeetCode**和**算法**上，毕竟编程最重要的还是算法……
+　　我是**谭鹏**，目前就读**湖南工业大学--计算机学院--计算机科学与技术**专业，目前大三，是一个对计算机相关知识有着浓厚兴趣的小伙子。  
+　　虽然我的名字特别容易重名，但拥有tanpeng.net这个域名的就我一个~
+　　至于技术方向，个人还是偏向于web后台研发，技术点的话，Java、C、C++、Python、PHP、Android、HTML、CSS、JS、SQL、JSP... 基本上都有所了解，但专攻的还是Java。
+　　作为一名合格计算机人，我对计算机相关知识一直都有着较为浓厚的兴趣，体现在几个方面：第一个是在所有计算机相关的专业课，我几乎都是90分以上，好几门还是专业第一。第二个是，我在课外会花很多时间学习计算机相关的知识。
+　　当然，我也不是一位只会技术的宅男，大学至今一直担任所在班级的班长，并且组织过不少活动，带领班上同学收获过不少校级集体荣誉。同时我还特别喜欢跑步和健身，毕竟一个人只有全面发展才能适应这个复杂的社会嘛。
+　　马上就要步入社会了，期待在校招之际能够找到自己满意的工作。对于接下来的生活，我可是充满期待和信心呢。
 
-　　至于我本身，比较随和，能动能静，能萌能帅，还有点小幽默，打代码的时候很专注以至于经常忘记事情，不打代码的时候就是个正常的帅哥。
 
 　　如果你要找到我:<br>
-　　**Gmail:<lanyuanxiaoyao@gmail>**<br>
-　　**QQmail:<lanyuanxiaoyao@qq.com>**<br>
-　　**163mail:<ZhangJC_LanyuanXY@163.com>**<br>
+　　**个人邮箱:<admin@tanpeng.net>**<br>
+　　**QQmail:<613258200@qq.com>**<br>
+　　**163mail:<tanpeg_net@163.com>**<br>
 
 　　在一些社交网络:<br>
-　　**[Github](https://github.com/lanyuanxiaoyao)**<br>
-　　**[新浪微博](http://weibo.com/lanyuanxiaoyao)**<br>
-　　**[知乎](https://www.zhihu.com/people/xiao-yao-lan-yuan)**<br>
-　　**[简书](http://www.jianshu.com/u/fa2581bc96b2)**<br>
-　　**[酷安网](http://www.coolapk.com/u/641442)**<br>
+　　**[个人网站](http://www.tanpeng.net)**<br>
+　　**[Github](https://github.com/enterprising)**<br>
+　　**[新浪微博](http://weibo.com/enterprising)**<br>
+　　**[牛客网](https://www.nowcoder.com/profile/3111850)**<br>
+　　**[CSDN](http://blog.csdn.net/qq_27687701)**<br>
 　　**[Twitter](https://twitter.com/lanyuanxiaoyao)**<br>
 　　**[FaceBook](https://www.facebook.com/lanyuanxiaoyao)**<br>
 　　**[LeetCode](https://leetcode.com/lanyuanxiaoyao/)**<br>
