@@ -1,7 +1,7 @@
 ---
 layout: post
 title: DAL架构的一些细节
-date: 2017-7-2 110:50
+date: 2017-7-2 11:50
 categories: DAL
 tags: [DAL]
 ---
