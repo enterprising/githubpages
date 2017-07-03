@@ -1,3 +1,4 @@
+---
 layout: post
 
 title: 设计模式
@@ -7,6 +8,9 @@ date: 2017-7-23 19:00
 categories: 设计模式
 
 tags: [设计模式]
+---
+
+
 
 ## 创建型模式
 
@@ -46,7 +50,7 @@ tags: [设计模式]
 
 代码参考：
 
-https://github.com/enterprising/designPatterns/tree/master/src/observer
+<https://github.com/enterprising/designPatterns/tree/master/src/observer>
 
 ### 状态模式
 
