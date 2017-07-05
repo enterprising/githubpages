@@ -16,7 +16,7 @@
 title: TanPeng's Blog
 brief-intro: Recording...
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+url: "http://blog.tanpeng.net" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
 
@@ -30,7 +30,7 @@ weibo_username: tanpeng
 linkedIn_username: 
 dribbble_username: 
 
-description_footer: 让这个世界因为有我的存在而变得有点点不同
+description_footer: 宠辱不惊，先看庭前花开花落
 
 # comments
 # two ways to comment, only choose one, and use your own short name
