@@ -1,12 +1,10 @@
 ---
 layout: post
-title: 
+title: MainTask version 2
 date: 2017-7-6 20:00
-categories: Linux
-tags: [Linux]
+categories: DAL
+tags: [DAL]
 ---
-
-## MainTask version 2
 
 说明：更换了一下处理顺序，先处理负载小的，再动负载大的。
 
