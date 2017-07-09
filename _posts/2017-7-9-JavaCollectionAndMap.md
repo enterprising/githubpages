@@ -61,13 +61,15 @@ tags: [Java]
 
 ​    常用方法说明：
 
-    ```java
+```java
 	offer( )  将一个元素插入到队列的尾部
     peek( ) 和 element( ) 都在不移除的情况下返回队列头
         区别在于： peek( )方法在队列为空时返回 null ，而element会抛异常
     poll( )和remove( )方法将移除并返回队列头，
         区别在于：poll( )在队列为空时返回null，而remove( )会抛出异常
-    ```
+```
+
+
 
 
 
