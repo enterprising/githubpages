@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 同一个业务的三种写法
+title: 同一个模块的三种不同写法
 date: 2017-7-11 10:00
 categories: Java
 tags: [Java]
 ---
 
-程度目的：
+程序目的：
 
 筛出来 groupQueue里面可以放在targetMachine上的最多的 group集合。
 
@@ -47,9 +47,11 @@ private LinkedList<Group> searchQueues(LinkedList<Group> groupQueue, Machine tar
 }
 ```
 
-点评：1、用了很多不必要的内存空间，循环做的也很乱
+点评：
 
-​	    2、判断语句的条件逻辑不是很合理
+​	1、用了很多不必要的内存空间，循环做的也很乱
+
+​	2、判断语句的条件逻辑不是很合理
 
 ## 2、思维清晰，高级版
 
