@@ -2,7 +2,7 @@
 layout: post
 title: DAL代码质量说明文档
 date: 2017-7-6 15:00
-categories: DAL,Java
+categories: Java
 tags: [DAL,Java]
 ---
 
