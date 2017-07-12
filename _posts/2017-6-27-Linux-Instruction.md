@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Linux基础指令
-date: 2017-6-28 20:50
+date: 2017-6-27 20:50
 categories: Linux
 tags: [Linux]
 ---
@@ -73,6 +73,14 @@ ls -f 显示文件类型信息
 ## echo
 
 输出
+
+### who
+
+查看目前有哪些用户在线
+
+> [peng.tan@adcz-dev-das-team-1 ~]$ who  
+> shaoyang.qi pts/0        2017-06-22 13:15 (10.12.67.43)  
+> peng.tan pts/1        2017-07-12 10:58 (10.12.35.180) 
 
 
 
