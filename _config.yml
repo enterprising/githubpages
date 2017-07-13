@@ -21,11 +21,11 @@ url: "http://blog.tanpeng.net" # the base hostname & protocol for your site
 permalink: /:year/:month/:day/:title/
 
 # other links
-twitter_username: tanpeng
-facebook_username: tanpeng
-github_username: tanpeng
+twitter_username: 
+facebook_username: 
+github_username: enterprising
 email: admin@tanpeng.net
-weibo_username: tanpeng
+weibo_username: enterprising
 #zhihu_username: 
 linkedIn_username: 
 dribbble_username: 
