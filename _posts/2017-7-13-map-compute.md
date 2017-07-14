@@ -6,6 +6,10 @@ categories: Java
 tags: [Java]
 ---
 
+### 亮点：线程安全
+
+里面核心是用**concurrentHashMap**实现的，这样放来放去的时候就不存在线程不安全的情况。粒度锁是个极大的亮点。
+
 ### 三个重要的关键字
 
 **compute :计算，Absent：不存在，Present：不存在**
