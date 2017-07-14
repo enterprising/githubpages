@@ -49,7 +49,26 @@ map.putIfAbsent(4, "af”);
 
 该方法是上面两个方法的集合体。
 
+```java
+list.forEach(group -> {
+    groupmap.computeIfPresent(group.getGroupName(), (String key, Integer value) -> value + group.getLoad());
+    groupmap.putIfAbsent(group.getGroupName(), group.getLoad());
+});
+```
 
+上面两个方法可以结合成一句话：
+
+```java
+list.forEach(group -> {
+    groupmap.compute(group.getGroupName(),(k,v)->(v==null)?group.getLoad():group.getLoad()+v);
+});
+```
+
+compute API简单介绍：
+
+> ```
+>  map.compute(key, (k, v) -> (v == null) ? msg : v.concat(msg))
+> ```
 
 ### 4、举个例子
 
