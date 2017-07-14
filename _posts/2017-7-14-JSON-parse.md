@@ -6,7 +6,7 @@ categories: Java
 tags: [Java] 
 ---
 
-目前非常火的几种解析库：**fastjson、json-lib、json-simple、jackson**
+{:toc}
 
 ### 1、本地常规测试
 
