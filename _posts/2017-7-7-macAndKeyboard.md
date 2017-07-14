@@ -6,6 +6,8 @@ categories: Mac
 tags: [Mac]
 ---
 
+* content
+{:toc}
 ## command键
 
 毫不夸张的说，在Mac上最重要的一个键就是 command 键，这个键其实就相当于Windows上面的Ctrl键。

@@ -6,6 +6,8 @@ categories: Linux
 tags: [Linux]
 ---
 
+* content
+{:toc}
 # shell的使用
 
 ## echo
@@ -74,7 +76,7 @@ ls -f 显示文件类型信息
 
 输出
 
-### who
+## who
 
 查看目前有哪些用户在线
 

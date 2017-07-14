@@ -6,6 +6,8 @@ categories: Java
 tags: [Java]
 ---
 
+* content
+{:toc}
 ## 这个是非常重要的一个技术点
 
 对象类：

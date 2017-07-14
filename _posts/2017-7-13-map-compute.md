@@ -6,6 +6,8 @@ categories: Java
 tags: [Java]
 ---
 
+* content
+{:toc}
 ### 亮点：线程安全
 
 里面核心是用**concurrentHashMap**实现的，这样放来放去的时候就不存在线程不安全的情况。粒度锁是个极大的亮点。
@@ -103,9 +105,9 @@ for (Group group : list) {
 
 
 
-详细说明：
+### 5、详细说明：
 
-## computeIfAbsent 方法
+#### computeIfAbsent 方法
 
 如果指定的key不存在，则通过指定的K -> V计算出新的值设置为key的值，类似代码如下：
 
@@ -129,7 +131,7 @@ map.computeIfAbsent(4, key -> key + " computed");
 System.out.println(map.get(4));
 ```
 
-## computeIfPresent 方法
+#### computeIfPresent 方法
 
 如果指定的key存在，则根据旧的key和value计算新的值newValue, 如果newValue不为null，则设置key新的值为newValue, 如果newValue为null, 则删除该key的值，类似代码如下：
 
@@ -156,6 +158,6 @@ map.computeIfPresent(2, (key, value) -> null);
 System.out.println(map.get(2));
 ```
 
-## compute 方法
+#### compute 方法
 
 compute方法是computeIfAbsent与computeIfPresent的综合体。

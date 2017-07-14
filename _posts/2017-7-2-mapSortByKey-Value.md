@@ -6,6 +6,8 @@ categories: Java
 tags: [Java]
 ---
 
+* content
+{:toc}
 > 有很多情况下需要我们根据键值对里面的值进行排序，而不是根据键进行排序。这里面的核心思路是写一个比较器，然后利用Collections里面的sort方法，传一个list和一个比较器进去。
 
 ## Map介绍
@@ -24,9 +26,9 @@ HashMap的值是没有顺序的，它是按照key的HashCode来实现的，对�
 
 注意：Map.Entry返回Collections视图。
 
-# 按key排序
+## 按key排序
 
-## TreeMap默认按照key升序进行排序
+### TreeMap默认按照key升序进行排序
 
 ```java
 public static void treeMapSortByKeyASC() {
@@ -61,7 +63,7 @@ public static void treeMapSortByKeyASC() {
 >
 > Process finished with exit code 0
 
-## TreeMap默认按照key降序进行排序
+### TreeMap默认按照key降序进行排序
 
 > 这里的重点是要自己写一个比较器 Comparator
 

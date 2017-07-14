@@ -6,6 +6,8 @@ categories: DAL
 tags: [DAL]
 ---
 
+* content
+{:toc}
 DAL主要有以下几部分组成：
 
 ## 1、配置

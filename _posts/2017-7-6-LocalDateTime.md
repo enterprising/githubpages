@@ -6,6 +6,8 @@ categories: Java
 tags: [Java]
 ---
 
+* content
+{:toc}
 ## 先看看老玩法
 
 获取时间 + 处理时间 + 格式化时间

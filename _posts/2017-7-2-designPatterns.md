@@ -10,8 +10,8 @@ categories: 设计模式
 tags: [设计模式]
 ---
 
-
-
+* content
+{:toc}
 ## 创建型模式
 
 ### 简单工厂模式

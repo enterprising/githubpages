@@ -6,8 +6,14 @@ categories: Java
 tags: [Java,操作系统]
 ---
 
-## 在java并发编程实战的第五章提到了两个很重要的集合类：
-**Vector 、 Hashtable**  重点记住这两个
+* content
+{:toc}
+## 两个很重要的集合类：
+
+在java并发编程实战的第五章提到了两个很重要的集合类：
+
+**Vector 、 Hashtable**  
+
  > 在这里要特别注意，HashMap不是线程安全的！！还有ArrayList、LinkedList也不是线程安全的
 
 ## 线程安全的ConcurrentHashMap
@@ -15,7 +21,10 @@ tags: [Java,操作系统]
 > ConcurrentHashMap并不是将每个方法都在同一个锁上同步并使得每次只能有一个线程访问容器，而是使用一种粒度更细的枷锁机制来实现更大程度的共享，这种机制称为 **分段锁**
 > 使用这个集合类带来的后果是，在并发访问环境下将实现更高的吞吐量，而在单线程环境中只损失非常小的性能。
 
-## 线程安全的StringBuffer，不安全的StringBuilder (以下为转载)
+## 线程安全的StringBuffer，不安全的StringBuilder 
+
+(以下为转载)
+
 新引入的StringBuilder类不是线程安全的，但其在单线程中的性能比StringBuffer高。如果你对此不太相信，可以试试下面的例子：
 ```java
 package com.hct.test;

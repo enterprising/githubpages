@@ -6,8 +6,8 @@ categories: Java
 tags: [Java]
 ---
 
-
-
+* content
+{:toc}
 ## 1、数组 将数字和对象联系起来。
 
 ​    它保存类型明确的对象，查询对象时不需要对结果做类型转换。

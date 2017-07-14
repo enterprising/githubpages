@@ -5,7 +5,10 @@ date: 2017-03-19 15:40
 categories: 计算机网络
 tags: [计算机网络]
 ---
+* content
+{:toc}
 # TCP的传输连接管理 --- TCP连接的释放
+
 ## 四次握手
 > 客户端A，服务器端B.  
 
@@ -40,18 +43,18 @@ MSL叫做**最长报文段寿命**，建议设置为**两分钟**。
 
 ## 关于四次握手的一些面试题
 > TCP链接中主动断开链接netstat观察可能出现的状态流转是：  
-正确答案: C D   你的答案: C D (正确)  
-A.ESTABLISHED->CLOSE_WAIT->TIME_WAIT->CLOSED  
-B.ESTABLISHED->TIME_WAIT->CLOSE_WAIT->CLOSED  
-C.ESTABLISHED->FIN_WAIT_1->FIN_WAIT_2->TIME_WAIT->CLOSED  
-D.ESTABLISHED->FIN_WAIT_1->TIME_WAIT->CLOSED  
+> 正确答案: C D   你的答案: C D (正确)  
+> A.ESTABLISHED->CLOSE_WAIT->TIME_WAIT->CLOSED  
+> B.ESTABLISHED->TIME_WAIT->CLOSE_WAIT->CLOSED  
+> C.ESTABLISHED->FIN_WAIT_1->FIN_WAIT_2->TIME_WAIT->CLOSED  
+> D.ESTABLISHED->FIN_WAIT_1->TIME_WAIT->CLOSED  
 
 > 下面有关TCP协议的描述，说法错误的是？  
-正确答案: D   你的答案: D (正确)  
-A.TCP使用窗口机制进行流量控制  
-B.由于TCP连接是全双工的，因此每个方向都必须单独进行关闭，需要四次握手  
-C.TCP连接建立需要三次握手  
-D.被动关闭socket后，会进入到TIME_WAIT状态  
+> 正确答案: D   你的答案: D (正确)  
+> A.TCP使用窗口机制进行流量控制  
+> B.由于TCP连接是全双工的，因此每个方向都必须单独进行关闭，需要四次握手  
+> C.TCP连接建立需要三次握手  
+> D.被动关闭socket后，会进入到TIME_WAIT状态  
 
 
-  [1]: http://omphwvjh0.bkt.clouddn.com/1489912496967.jpg "四次握手"
+[1]: http://omphwvjh0.bkt.clouddn.com/1489912496967.jpg "四次握手"

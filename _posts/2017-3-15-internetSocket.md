@@ -5,11 +5,17 @@ date: 2017-3-15 22:25
 categories: 计算机网络
 tags: [计算机网络]
 ---
+* content
+{:toc}
 # socket的概念
+
 网络上的两个程序通过一个双向的通信来实现数据的交换，这个双向链路的一端称为一个Socket。
 Socket也叫套接字。
 由IP地址和端口号组成
-# 用socket实现客户端和服务器端的通信，要求客户发送数据后能够回显相同的数据。
+# 例子
+
+用socket实现客户端和服务器端的通信，要求客户发送数据后能够回显相同的数据。
+
 ## 服务器端
 ```java
 import java.io.BufferedReader;
@@ -109,5 +115,5 @@ public class Client {
   ![enter description here][2]
 
 
-  [1]: http://omphwvjh0.bkt.clouddn.com/1489587881807.jpg
-  [2]: http://omphwvjh0.bkt.clouddn.com/1489587979757.jpg 
+[1]: http://omphwvjh0.bkt.clouddn.com/1489587881807.jpg
+[2]: http://omphwvjh0.bkt.clouddn.com/1489587979757.jpg
