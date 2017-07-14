@@ -59,9 +59,7 @@ list.forEach(group -> {
 上面两个方法可以结合成一句话：
 
 ```java
-list.forEach(group -> {
-    groupmap.compute(group.getGroupName(),(k,v)->(v==null)?group.getLoad():group.getLoad()+v);
-});
+list.forEach(group -> groupmap.compute(group.getGroupName(),(k, v)->(v==null)?group.getLoad():group.getLoad()+v));
 ```
 
 compute API简单介绍：
