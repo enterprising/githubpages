@@ -8,6 +8,8 @@ tags: [Java]
 
 * content
 {:toc}
+
+
 用了这么多年的Apache httpclient，但一直没有对它进行过详细的了解，只会单纯地使用。现在趁周末对它进行稍微详细的介绍。
 
 ## 1、引用的jar包
