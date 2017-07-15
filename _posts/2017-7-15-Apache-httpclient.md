@@ -12,7 +12,7 @@ tags: [Java]
 
 用了这么多年的Apache httpclient，但一直没有对它进行过详细的了解，只会单纯地使用。现在趁周末对它进行稍微详细的介绍。
 
-## 1、引用的jar包
+# 1、引用的jar包
 
 maven项目里面只需要在pom.xml里面加一句话：
 
@@ -42,37 +42,35 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 ```
 
+# 2、过程详解
 
-
-## 2、过程详解
-
-### 2.1创建一个HpptClient对象
+## 2.1创建一个HpptClient对象
 
 > CloseableHttpClient httpclient = HttpClients.createDefault();
 
 这里创建的是一个可以关闭的client
 
-### 2.2创建一个HttpGet对象
+## 2.2创建一个HttpGet对象
 
 > HttpGet httpget = new HttpGet(url);
 
-### 2.3执行get请求，返回httpresponse
+## 2.3执行get请求，返回httpresponse
 
 > CloseableHttpResponse response = httpclient.execute(httpget);
 
-### 2.4获取响应实体 HttpEntity
+## 2.4获取响应实体 HttpEntity
 
 > HttpEntity entity = response.getEntity();
 
-### 2.5利用EntityUtils类的toString方法，将响应实体转成字符串
+## 2.5利用EntityUtils类的toString方法，将响应实体转成字符串
 
 > String result = EntityUtils.toString(entity);
 
-### 2.6关闭response、关闭httpclient
+## 2.6关闭response、关闭httpclient
 
 注意关闭响应结果、关闭连接，避免造成资源的浪费
 
-## 3、代码
+# 3、代码
 
 ```java
 /**
