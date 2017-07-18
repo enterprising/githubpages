@@ -25,7 +25,7 @@ map.put(3, "c”);
 
 以下操作建立在上面这个Map集合的基础之上，
 
-### 1、computeIfAbsent()  
+### computeIfAbsent()  
 
  例如：map.computeIfAbsent(4, key -> key + "af”);
 
@@ -43,7 +43,7 @@ map.putIfAbsent(4, "af”);
 
 
 
-### 2、map.computeIfPresent()
+### map.computeIfPresent()
 
 例如：map.computeIfPresent(1, (key, value) -> value+"asd”);    //这个就比较重要了。如果存在就对齐进行修改。
 
@@ -51,7 +51,7 @@ map.putIfAbsent(4, "af”);
 
 
 
-### 3、compute() 
+### compute() 
 
 该方法是上面两个方法的集合体。
 
@@ -74,7 +74,7 @@ compute API简单介绍：
 >  map.compute(key, (k, v) -> (v == null) ? msg : v.concat(msg))
 > ```
 
-### 4、举个例子
+### 举个例子
 
 目的：遍历一个list，如果list里面的对象的name相同，就取出来叠加，否则直接加进去。
 
@@ -105,7 +105,7 @@ for (Group group : list) {
 
 
 
-### 5、详细说明：
+### 详细说明：
 
 #### computeIfAbsent 方法
 

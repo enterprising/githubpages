@@ -8,7 +8,7 @@ tags: [Java]
 
 * content
 {:toc}
-### 1、本地常规测试
+### 本地常规测试
 
 将999条日志循环处理100次，既99900条日志，各处理5次，将循环放在try-catch块内，获得如下结果：
 
@@ -19,7 +19,7 @@ tags: [Java]
 | json-simple | 21580 | 22073 | 21828.6 |
 | jackson     | 12684 | 13577 | 12974   |
 
-### 2、Storm集群Topology测试
+### Storm集群Topology测试
 
 将上述逻辑分别放置在4个不同的bolt中，消费同一个spout下发的pubt日志，所有compnent并发数为1，worker数=executor数，保证独占一个jvm。
 
@@ -37,13 +37,13 @@ tags: [Java]
 
 同时，随着topology的持续运行，进入业务高峰期后，由于capacity变高，json-lib和simple-json所在的bolt不断发生worker重启现象，更换slot，导致监控不连贯。
 
-### 3、总结
+### 总结
 
 jackson与fastjson最快，net.sf的json-lib性能远远不及其他三种库。
 
 在业务高峰期的时候，经过测试，最稳定的也是 jackson和fastjson
 
-### 4、关于fastjson的简单介绍
+### 关于fastjson的简单介绍
 
 来自阿里巴巴
 

@@ -16,11 +16,11 @@ Map在日常开发中是使用的非常频繁的一个集合接口，它的实�
 
 ## 两种最常用的Map实现类
 
-### 1、TreeMap
+### TreeMap
 
 TreeMap 基于红黑树的NavigableMap实现。该映射根据其键的自然顺序进行排序，或者创建映射时提供的 Comparator 进行排序，具体取决于使用的构造方法。
 
-### 2、HashMap
+### HashMap
 
 HashMap的值是没有顺序的，它是按照key的HashCode来实现的，对于这个无序的HashMap我们要怎么来实现排序呢？参照TreeMap的value排序
 
