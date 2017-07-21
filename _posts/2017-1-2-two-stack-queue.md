@@ -2,8 +2,8 @@
 layout: post
 title: 用两个栈实现一个队列
 date: 2017-1-2 8:00
-categories: 剑指offer
-tags: [剑指offer]
+categories: 剑指Offer
+tags: [剑指Offer]
 ---
 # 题目描述
 > 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
