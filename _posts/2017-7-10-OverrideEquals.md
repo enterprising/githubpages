@@ -81,7 +81,15 @@ public static void main(String[] args) {
 
 合理运用equals，能使逻辑清晰很多，代码短很多，程序健壮性好很多
 
-3、虽然方便，但是一般不用。因为equals和hashcode方法运行结果不一致，是大忌。
+3、虽然方便，但是一般不用。因**为equals和hashcode方法运行结果不一致，是大忌。**
+
+4、重写equals方法的话，要满足**自反性、对称性、传递性、一致性、非空性**。
+
+> 1   自反性：对任意引用值X，x.equals(x)的返回值一定为true.  
+> 2   对称性：对于任何引用值x,y,当且仅当y.equals(x)返回值为true时，x.equals(y)的返回值一定为true;  
+> 3   传递性：如果x.equals(y)=true, y.equals(z)=true,则x.equals(z)=true  
+> 4   一致性：如果参与比较的对象没任何改变，则对象比较的结果也不应该有任何改变  
+> 5   非空性：任何非空的引用值X，x.equals(null)的返回值一定为false
 
 # 重写toString方法
 
