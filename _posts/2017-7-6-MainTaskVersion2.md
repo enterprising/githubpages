@@ -154,7 +154,7 @@ public class GrepUtil {
     public List<Group> getGroupByHost(String hostName, String startTime, String endTime) {
         //排序器
         Comparator<Map.Entry<String, Integer>> valueComparator = Comparator.comparingInt(Map.Entry::getValue);
-        String groupInHostURL = "http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20%7BhostName=%22" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
+        String groupInHostURL = "xxxxxxx" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
         String groupResult = httpUtil.getResult(groupInHostURL);
         TreeMap groupmap = new TreeMap<String, Integer>();
         JSON_group json_group = JSON.parseObject(groupResult, JSON_group.class);
@@ -186,7 +186,7 @@ public class GrepUtil {
     public List<Host> gethosts(String hostName, String startTime, String endTime) {
         String result = "";
         HttpUtil httpUtil = new HttpUtil();
-        String url = "http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20(0)%20by%20hostName%20range(" + startTime + "," + endTime + ")";
+        String url = "xxxxxxxx(" + startTime + "," + endTime + ")";
         result = httpUtil.getResult(url);
         JSON_host j = JSON.parseObject(result, JSON_host.class);
         TreeMap<String, Integer> hostmap = new TreeMap<>();
@@ -225,7 +225,7 @@ public class GrepUtil {
     public LinkedList<Group> getGroupQueueByHost(String hostName, String startTime, String endTime) {
         //排序器
         Comparator<Map.Entry<String, Integer>> valueComparator = Comparator.comparingInt(Map.Entry::getValue);
-        String groupInHostURL = "http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20%7BhostName=%22" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
+        String groupInHostURL = "xxxxxx" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
         String groupResult = httpUtil.getResult(groupInHostURL);
         TreeMap groupmap = new TreeMap<String, Integer>();
         JSON_group json_group = JSON.parseObject(groupResult, JSON_group.class);

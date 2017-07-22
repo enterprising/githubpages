@@ -28,11 +28,7 @@ tags: [DAL,Java]
 
 ​    将其排序，找出一个avg
 
-​    URL："[http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20(0)%20by%20hostName%20range(](http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20(0)%20by%20hostName%20range()"+startTime+","+endTime+”)"
-
 2、根据hostList ，二维展开，找出对应host上面的GroupList，GroupList也要 按照流量降序进行排序
-
-​    URL："[http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20%7BhostName=%22](http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20%7BhostName=%22)"+(hostlist.get(0).getKey()+"")+"%22%7D(0)%20by%20group%20range("+startTime+","+endTime+")";
 
 3、根据avg，将 负载高的host 上面的 高负载Group 移到 负载低的host 上。
 
@@ -243,7 +239,7 @@ public class GrepUtil {
     public List<Map.Entry<String, Integer>> getGroupByHost(String hostName, String startTime, String endTime) {
         //排序器
         Comparator<Map.Entry<String, Integer>> valueComparator = (o1, o2) -> o2.getValue() - o1.getValue();
-        String groupInHostURL = "http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20%7BhostName=%22" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
+        String groupInHostURL = "xxxxxxxxxx" + hostName + "%22%7D(0)%20by%20group%20range(" + startTime + "," + endTime + ")";
         String groupResult = httpUtil.getResult(groupInHostURL);
         TreeMap groupmap = new TreeMap<String, Integer>();
         JSON_group json_group = JSON.parseObject(groupResult, JSON_group.class);
@@ -259,7 +255,7 @@ public class GrepUtil {
     public List<Map.Entry<String, Integer>> getHostList(String startTime, String endTime) {
         String result = "";
         HttpUtil httpUtil = new HttpUtil();
-        String url = "http://trace-gw.elenet.me/api/query/dal?ql=timer.dal.dashboard.group%20(0)%20by%20hostName%20range(" + startTime + "," + endTime + ")";
+        String url = "xxxxxxxxxx" + startTime + "," + endTime + ")";
         result = httpUtil.getResult(url);
         JSON_host j = JSON.parseObject(result, JSON_host.class);
         TreeMap hostmap = new TreeMap<String, Integer>();

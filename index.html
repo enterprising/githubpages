@@ -6,8 +6,40 @@ layout: default
     <div class="left">
         <h1>Welcome!</h1>
         <small>The thing that matters is not whether you fail or not, but whether you try or not.</small>
-       <hr>
+               <hr>
         <ul>
+            {% if paginator.page == 1 %}
+            {% for post in site.posts %}
+            {% if post.top == true %}
+              <li>
+                <h2>
+                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}"><span style="color: red; padding-right: 4px">[置顶]</span>{{ post.title }}</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>{{ post.date | date: "%F" }}
+                    </div>
+                    <div class="label-card">
+                        {% if post.author %}<i class="fa fa-user"></i>{{ post.author }}
+                        {% endif %}
+                    </div>
+                    <div class="label-card">
+                        {% if page.meta %}<i class="fa fa-key"></i>{{ page.meta }}  {% endif %}
+                    </div>
+
+                    <div class="label-card">
+                    {% include category.html %}
+                    </div>
+
+                    <div class="label-card">
+                    {% include tag.html %}
+                    </div>
+                </div>
+                <hr>
+              </li>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
             {% for post in paginator.posts %}
               <li>
                 <h2>
@@ -144,15 +176,21 @@ layout: default
                 </div>
             </div>
 
-            <!-- <div class="side">
+            <div class="side">
                 <div>
-                    <i class="fa fa-external-link"></i>
-                    Links
+                    <i class="fa fa-smile-o "></i>
+                    友情链接
                 </div>
                 <ul  class="content-ul">
-
+                    <div style="padding-bottom: 10px">
+                        <a target="_blank" href="https://shekhargulati.com/">Shekhar Gulati</a>
+                        <br>
+                        <a target="_blank" href="http://www.lanyuanxiaoyao.com/">胖子的博客</a>
+                        <br>
+                        <a target="_blank" href="http://blog.csdn.net/h3243212/">魏楚阳的博客</a>
+                    </div>
                 </ul>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>
