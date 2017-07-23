@@ -44,7 +44,7 @@ import org.apache.http.util.EntityUtils;
 
 ## 过程详解
 
-### 创建一个HpptClient对象
+### 创建一个HttpClient对象
 
 > CloseableHttpClient httpclient = HttpClients.createDefault();
 
