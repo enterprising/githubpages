@@ -73,6 +73,12 @@ ls -f 显示文件类型信息
 
 ```$ rm file```
 
+rm -rf的作用：删除目录下面的所有文件。
+
+-r 代表向下递归，不管有多少级目录，一并删除
+
+-f 代表直接强行删除，不做任何提示的意思
+
 ## echo
 
 输出
@@ -81,7 +87,7 @@ ls -f 显示文件类型信息
 
 查看目前有哪些用户在线
 
-> [peng.tan@adcz-dev-das-team-1 ~]$ who  
+> [peng.tan@xxx机器名~]$ who  
 > shaoyang.qi pts/0        2017-06-22 13:15 (10.12.67.43)  
 > peng.tan pts/1        2017-07-12 10:58 (10.12.35.180) 
 
@@ -177,3 +183,93 @@ tail命令用于显示文件的最后10行内容
 
 用于将文件内的所有行按照字母顺序快速排序。你可以使用 -n 选项按照数字顺序排序那些以数字开头的行，使用 -r 选项反向排序。
 
+# 查看Linux服务器性能的指令
+
+对系统的资源情况有大致的了解：
+
+- uptime
+- dmesg | tail
+- vmstat 1
+- mpstat -p ALL 1
+- pidstat 1
+- iostat -xz 1
+- free -m
+- sar -n DEV 1
+- sar -n TCP,ETCP 1
+- top
+
+## uptime
+
+输出平均负载
+
+![1](https://ws4.sinaimg.cn/large/006tNc79ly1fhut4ds19jj30pi01wdga.jpg)
+
+说明：信息输出依次是，系统当前时间、系统开机到现在运行了多长时间、系统当前有多少个登录用户、系统在1分钟 5分钟 10分钟内的平均负载。
+
+注意：如果load average值长期大于系统CPU的个数则说明CPU很繁忙，负载很高，可能会影响系统性能，导致系统卡顿等。
+
+## dmesg
+
+dmesg | tail  输出系统日志的最后10行
+
+## vmstat
+
+vmstat 1  输出系统核心的一些指标    （退出：control + c）
+
+![2](https://ws3.sinaimg.cn/large/006tNc79ly1fhut94vlecj30vo0jswis.jpg)
+
+说明：输出依次是：
+
+  procs：
+
+-  r：在等待CPU资源的进程数。这个数据比平均负载更能体现CPU的负载情况。数据中不包含等待IO的进程。如果这个数值大于机器CPU核数，那么机器的CPU资源以及饱和。
+- b：表示在等待资源的进程数，比如正在等待IO或者内存交换等。
+
+  memory：
+
+- swpd：表示切换到内存交换区的内存大小（单位KB）。通俗的讲就是虚拟内存的大小。
+- free：表示当前空闲的物理内存（单位KB）
+- buff：表示buffers cached 内存大小，也就是缓冲区的大小。
+- cache：表示page cached 的内存大小，也就是缓存大小。
+
+  swap：
+
+- si：表示由磁盘调入内存，也就是内存进入内存交换区的内存大小
+- so：表示由内存进入磁盘，也就是由内存交换区进入内存的内存大小
+
+  io：
+
+- bi：表示由块设备读入数据的总量 kb/s
+- bo：写，kb/s
+
+  system：
+
+- in：表示某一时间间隔内观测到的每一秒设备中断的次数
+- cs：表示每秒产生的上下文切换次数
+
+  cpu：
+
+- us：用户进程消耗的CPU时间百分比
+- sy：系统内核进程消耗的CPU时间百分比
+- id：CPU处于空闲状态下的百分比
+- wa：IP等待所占的CPU时间百分比。值越高，说明IO等待越严重。一般正常是 20%
+
+## top
+
+![3](https://ws3.sinaimg.cn/large/006tNc79ly1fhutbmmviej30yg0m8agv.jpg)
+
+说明：能够实时监控系统的运行状态，并且可以按照CPU、内存和执行时间进行排序。
+
+排序说明：
+
+Cpu ： 在top交互界面按shift+p。
+
+Mem ：在top交互界面按shift+m。
+
+Time ：在top交互界面按shift+t。
+
+## ps
+
+列出系统中当前运行的进程。就是process status的缩写。
+
+![屏幕快照 2017-07-24 上午11.29.22](https://ws1.sinaimg.cn/large/006tNc79ly1fhute2mk2ej30vg08cjtc.jpg)
