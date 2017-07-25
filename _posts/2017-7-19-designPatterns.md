@@ -1,9 +1,10 @@
 ---
 layout: post
-title: 设计模式(一句话高度概括)
+title: 设计模式
 date: 2017-7-19 19:00
 categories: 设计模式
 tags: [设计模式]
+top: true
 ---
 
 * content
