@@ -4,8 +4,11 @@ title: Java定时器
 date: 2017-7-26 14:00
 categories: Java
 tags: [Java]
+
 ---
 
+* content
+{:toc}
 # Timer介绍
 
 在Java中的一个完整的定时任务由**Timer**和**TimerTask**两个类配合完成。
@@ -18,7 +21,7 @@ Timer计时器可以**定时**（指定时间执行任务）、**延迟**（延�
 
 **定时器的实现原理就是新开一个子线程执行定时任务。**
 
-## demo-one
+# demo-one
 
 ```java
 /**
@@ -102,7 +105,7 @@ public static void main(String[] args) {
 
 解决思路：用ScheduledExecutorService替代Timer
 
-## 其它计时器推荐
+# 其它计时器推荐
 
 java.util.Timer 简单易用，比较适合提供轻量级的计时器功能。由于其创建的线程会超出容器的管理范围，因此不能应用于管理的环境中。
 
