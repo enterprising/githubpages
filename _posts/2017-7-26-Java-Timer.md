@@ -248,7 +248,7 @@ service.scheduleAtFixedRate(test, delay, period, TimeUnit.MILLISECONDS);
 ## 完整的代码
 
 ```java
-public class ScheduledExceutorTest2 extends TimerTask {
+public class ScheduledExceutorTest2 implements Runnable {
     private String jobName = "";
     private Period between;
     public ScheduledExceutorTest2(String jobName) {
