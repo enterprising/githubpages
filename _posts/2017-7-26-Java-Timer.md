@@ -4,7 +4,7 @@ title: Java 任务调度
 date: 2017-7-27 10:00
 categories: Java
 tags: [Java]
-
+top: true
 ---
 
 * content
@@ -115,7 +115,7 @@ since Java1.3 老古董了，早就不用了。老大说千万不要用。
 
 现在用啥？Java1.5出了一个 **ScheduledExecutor**
 
-
+<br/>
 
 # ScheduledExecutor
 
@@ -197,7 +197,7 @@ service.scheduleAtFixedRate(new ScheduledExecutorTest("job1"), initialDelay1, pe
 
 官方的文档，永远都是最好的。
 
-
+<br/>
 
 # ScheduledExecutor复杂应用
 
@@ -282,9 +282,7 @@ public class ScheduledExceutorTest2 extends TimerTask {
 
 这个我是一定要学的，不过暂时没时间。先挖个坑，有时间再填。
 
-
-
-
+<br/>
 
 # 其它任务调度工具推荐
 
@@ -296,12 +294,12 @@ Commonj Timer ：IBM和BEA研发的一款计时器
 
 WebSphere Application Server Scheduler ：IBM研发的计时器
 
-
+<br/>
 
 # 参考资料
 
 1、几种任务调度的 Java 实现方法与比较  <https://www.ibm.com/developerworks/cn/java/j-lo-taskschedule/index.html> 2011.9.10
 
-2、多种计时器的比较与分析 <https://www.ibm.com/developerworks/cn/java/j-lo-timer/>  2008。5.26
+2、多种计时器的比较与分析 <https://www.ibm.com/developerworks/cn/java/j-lo-timer/>  2008.5.26
 
 3、java定时器Timer <http://www.jianshu.com/p/522586988368> 2017.6.8
