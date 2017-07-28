@@ -9,13 +9,13 @@ top: true
 
 * content
 {:toc}
-# shell的使用
+# 基础命令
 
 ## echo
 
 ```$ echo Hello World```
 
-用于输出
+用于输出信息
 
 ## cat
 
@@ -24,10 +24,6 @@ top: true
 用于显示一个或多个文件的内容
 
 标准输入输出，使用 流 
-
-
-
-# 基础命令
 
 ## ls
 
@@ -99,6 +95,8 @@ rm -rf的作用：删除目录下面的所有文件。
 
 ![屏幕快照 2017-07-24 下午9.35.54](https://ws3.sinaimg.cn/large/006tNc79ly1fhvax2c1qxj30ek05u3yy.jpg)
 
+<br/>
+
 # 浏览目录
 
 ## cd
@@ -129,7 +127,7 @@ rm -rf的作用：删除目录下面的所有文件。
 
 主要就是 . 和 *
 
-
+<br/>
 
 # 中间命令
 
@@ -188,6 +186,8 @@ tail命令用于显示文件的最后10行内容
 ## sort
 
 用于将文件内的所有行按照字母顺序快速排序。你可以使用 -n 选项按照数字顺序排序那些以数字开头的行，使用 -r 选项反向排序。
+
+<br/>
 
 # 查看Linux服务器性能的指令
 
@@ -279,3 +279,17 @@ Time ：在top交互界面按shift+t。
 列出系统中当前运行的进程。就是process status的缩写。
 
 ![屏幕快照 2017-07-24 上午11.29.22](https://ws1.sinaimg.cn/large/006tNc79ly1fhute2mk2ej30vg08cjtc.jpg)
+
+<br/>
+
+# 复杂命令
+
+## 统计代码的行数
+
+``find . -name "*.java" | xargs wc -l``
+
+这里统计的是所有后缀为Java的文件的函数，也可以换成其他的。
+
+``find . -name ".m" -or -name ".h" -or -name ".xib" -or -name ".c" |xargs grep -v "^$"|wc -l ``
+
+统计.m .h .xib .c 文件内容总行数
