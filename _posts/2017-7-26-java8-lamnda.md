@@ -4,6 +4,7 @@ title: 《Java8函数式编程》-读书笔记
 date: 2017-7-26 16:00
 categories: Java
 tags: [Java,Java8]
+top: true
 ---
 
 * content
