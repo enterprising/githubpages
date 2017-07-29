@@ -3,7 +3,7 @@ layout: post
 title: Java 任务调度
 date: 2017-7-27 10:00
 categories: Java
-tags: [Java]
+tags: [Java,任务调度]
 top: true
 ---
 
@@ -280,7 +280,51 @@ public class ScheduledExceutorTest2 implements Runnable {
 
 # Quartz
 
-这个我是一定要学的，不过暂时没时间。先挖个坑，有时间再填。
+好强大，比上面那东西强大多了。
+
+直接上demo
+
+```java
+public class QuartzTest implements Job {
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        System.out.println("Generating report - "
+                + jobExecutionContext.getJobDetail().getFullName() + ", type ="
+                + jobExecutionContext.getJobDetail().getJobDataMap().get("type"));
+        System.out.println(new Date().toString());
+    }
+
+    public static void main(String[] args) {
+        try {
+            // 创建一个Scheduler
+            SchedulerFactory schedFact = new StdSchedulerFactory();
+            Scheduler sched = schedFact.getScheduler();
+            sched.start();
+            // 创建一个JobDetail，指明name，groupname，以及具体的Job类名，
+            //该Job负责定义需要执行任务
+            JobDetail jobDetail = new JobDetail("myJob", "myJobGroup", QuartzTest.class);
+            jobDetail.getJobDataMap().put("type", "FULL");
+            // 创建一个每周触发的Trigger，指明星期几几点几分执行
+            Trigger trigger = TriggerUtils.makeWeeklyTrigger(3, 16, 38);
+            trigger.setGroup("myTriggerGroup");
+            // 从当前时间的下一秒开始执行
+            trigger.setStartTime(TriggerUtils.getEvenSecondDate(new Date()));
+            // 指明trigger的name
+            trigger.setName("myTrigger");
+            // 用scheduler将JobDetail与Trigger关联在一起，开始调度任务
+            sched.scheduleJob(jobDetail, trigger);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+运行效果：
+
+> Generating report - myJobGroup.myJob, type =FULL  
+> Sat Jul 29 15:18:00 CST 2017
 
 <br/>
 
