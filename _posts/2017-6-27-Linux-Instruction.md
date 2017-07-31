@@ -45,6 +45,12 @@ ls -f 显示文件类型信息
 
 将多个文件复制到dir目录下
 
+除了可以复制文件，还可以复制文件夹。不过复制文件夹的话要加上 -r 代表向下递归
+
+`` cp -r logback /Users/enterprising/desktop``
+
+上面这行指令表示将当前目录下面的 文件夹：logback复制一份到 /Users/xxx/桌面上面
+
 ## mv
 
 类似cp，用于重命名文件
