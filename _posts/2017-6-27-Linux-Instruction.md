@@ -137,6 +137,10 @@ rm -rf的作用：删除目录下面的所有文件。
 
 # 中间命令
 
+在字符处理领域，有grep、awk、sed三剑客，**grep负责找出特定的行**，**awk能将行拆分成多个字段**，**sed则可以实现更新插入删除等写操作。**
+
+**grep查找，awk分析，sed编辑。**
+
 ## grep
 
 用于显示文件和输入流中和参数匹配的行。可以用于文件内的字符串查找。
@@ -152,6 +156,35 @@ rm -rf的作用：删除目录下面的所有文件。
 grep还有两个很重要的选项，一个是 ： -i (不区分大小写)，一个是 -v(反转匹配，就是显示所有不匹配的行)
 
 grep还能识别正则表达式
+
+## awk
+
+简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。
+
+搜索/etc/passwd有root关键字的所有行
+
+```shell
+#awk -F: '/root/' /etc/passwd
+```
+
+## sed
+
+sed用于流编辑，用于对文本进行过滤和替换操作。
+
+sed  Options...  \[script\]\[inputfile…\]
+
+sed  选项...       \[脚本指令\]\[输入文件\]
+
+操作：
+
+​    a,append        追加
+​    i,insert        插入
+​    d,delete        删除
+​    s,substitution  替换
+
+demo： 第二行后添加TYPE=Ethernet
+
+``sed  '2a TYPE=Ethernet'  test.txt``   
 
 ## less
 
