@@ -122,6 +122,8 @@ top: true
 
 **Proxy** Pattern
 
+翻墙就是代理模式的典型应用啊
+
 对代理模式我还是挺有感情的，因为当时面试饿了么的时候，老大问过我这个模式。当时其实听都没听过，就根据 “代理” 这个词跟他扯了一大堆，最后好像还真是那个意思。为我拿到offer做出了不少贡献。
 
 所谓的代理模式，其实就是： **封装被代理对象，并限制外界对代理对象的访问。**
@@ -129,6 +131,43 @@ top: true
 简单来说的话其实就是个中间层，想在访问一些类的时候做一些控制的时候需要使用。
 
 装饰模式和代理模式的区别：**装饰器模式关注于在一个对象上动态的添加方法，然而代理模式关注于控制对对象的访问**。就是，一个是为了新增东西，一个是为了控制访问权限。<http://www.cnblogs.com/jaredlam/archive/2011/11/08/2241089.html> 
+
+**生活中的代理模式：**
+
+> 我们购买火车票可以去火车站买，但是也可以去火车票代售处买，此处的火车票代售处就是火车站购票的代理，即我们在代售点发出买票请求，代售点会把请求发给火车站，火车站把购买成功响应发给代售点，代售点再告诉你。
+> 但是代售点只能买票，不能退票，而火车站能买票也能退票，因此代理对象支持的操作可能和委托对象的操作有所不同。
+
+**翻墙：**
+
+> 远程代理：我们在国内因为GFW，所以不能访问 facebook，我们可以用翻墙（设置代理）的方法访问。访问过程是：  
+> (1)用户把HTTP请求发给代理  
+> (2)代理把HTTP请求发给web服务器  
+> (3)web服务器把HTTP响应发给代理  
+> (4)代理把HTTP响应发回给用户  
+
+**Java动态代理的内部实现：**
+
+Java 是怎么保证代理对象调用的任何方法都会调用 InvocationHandler 的 `invoke()`方法的呢？
+
+这就涉及到动态代理的内部实现。顺带还解决了一个疑问：invoke方法传入的Ojbect proxy，这个proxy到底是什么，为什么调用proxy.invoke会出现无限递归？
+
+假设有一个接口 Subject，且里面有 `int request(int i)` 方法，则生成的代理类大致如下：
+
+```
+public final class $Proxy1 extends Proxy implements Subject{
+	private InvocationHandler h;
+	private $Proxy1(){}
+	public $Proxy1(InvocationHandler h){
+		this.h = h;
+	}
+	public int request(int i){
+		Method method = Subject.class.getMethod("request", new Class[]{int.class});	//创建method对象
+		return (Integer)h.invoke(this, method, new Object[]{new Integer(i)}); //调用了invoke方法
+	}
+}
+```
+
+通过上面的方法就成功调用了 invoke() 方法。
 
 <br/>
 

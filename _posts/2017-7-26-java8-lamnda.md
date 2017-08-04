@@ -503,3 +503,9 @@ public static double[] parallelInitialize(int size) {
 - 数据并行化是把工作拆分，同时在多核CPU上执行的方式。
 - 如果使用流编写代码，可通过调用 parallel 或者 parallelStream 方法来实现数据并行化操作。
 - 影响性能的五要素：数据大小，源数据结构，值是否装箱，可用CPU核数量，以及处理每个元素所花的时间。
+
+<br/>
+
+# 测试调试和重构
+
+未完待续...
