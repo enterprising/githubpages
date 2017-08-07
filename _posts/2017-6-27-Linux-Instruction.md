@@ -206,7 +206,26 @@ demo： 第二行后添加TYPE=Ethernet
 
 该命令有几个选项可以让你设置输出结果的格式，如 -u，但是其实不常用。
 
-## find和locate
+## find
+
+语法： 
+[root@redhat ~]# find 路径 参数 
+参 数说明： 
+时间查找参数： 
+-atime n :将n*24小时内存取过的的文件列出来 
+-ctime n :将n*24小时内改变、新增的文件或者目录列出来 
+-mtime n :将n*24小时内修改过的文件或者目录列出来 
+-newer file ：把比file还要新的文件列出来 
+名称查找参数： 
+-gid n       ：寻找群组ID为n的文件 
+-group name  ：寻找群组名称为name的文件 
+-uid n       ：寻找拥有者ID为n的文件 
+-user name   ：寻找用户者名称为name的文件 
+-name file   ：寻找文件名为file的文件（可以使用通配符） 
+例 如： 
+[root@redhat ~]# find / -name zgz 
+
+## find和locate的区别
 
 在目录中寻找文件
 
