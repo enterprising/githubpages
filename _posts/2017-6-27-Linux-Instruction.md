@@ -214,6 +214,23 @@ demo： 第二行后添加TYPE=Ethernet
 
 locate与find的区别在于：locate在系统创建的文件索引中查找文件，这个索引由操作系统进行更新，查找速度比find要快。但是要找新创建的文件的时候可能会找不到。
 
+## find的grep的区别
+
+linux中的find等同与win中的搜索文件。
+find是在磁盘/分区中找到文件，可以配type可以配size time等，通过文件名或文件大小或访问时间找到指定文件。
+
+linux中的grep等同与win中的findstr命令。可以在一个[txt文本](https://www.baidu.com/s?wd=txt%E6%96%87%E6%9C%AC&tn=44039180_cpr&fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1Y3rjc4m1IhPjm4mHI9nhfv0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHT1Pjf3PW64)中截取到有特定关键字的行，并显示出来。
+grep也可以通过关键字，在一个文件夹下查找多个有这些关键字的文件，并生成结果。
+
+## which
+
+语法： 
+[root@redhat ~]# which 可执行文件名称 
+例如： 
+[root@redhat ~]# which passwd 
+/usr/bin/passwd 
+which是通过 PATH环境变量到该路径内查找可执行文件，所以基本的功能是寻找可执行文件 
+
 ## head和tail
 
 head命令用于显示文件的前10行内容
