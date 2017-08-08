@@ -368,3 +368,58 @@ Time ：在top交互界面按shift+t。
 ``find . -name ".m" -or -name ".h" -or -name ".xib" -or -name ".c" |xargs grep -v "^$"|wc -l ``
 
 统计.m .h .xib .c 文件内容总行数
+
+## 项目打包
+
+需要很多配置文件和shell脚本，利用mvn命令
+
+主要需要参考的目录结构为:
+xxx项目名/
+
+    src
+    assembly
+    conf
+    script
+
+目标:
+``mvn clean install ``之后生成一个tar包, 解压之后:
+有以下几个文件或目录:
+conf     lib      run.sh   sbin     start.sh
+
+加压tar包：
+
+``tar xvf xxx.tar``
+
+之后，进入target目录，运行``./run.sh start/status/stop`` 开启/查看当前状态/关闭
+
+tar包对Linux很友好
+
+maven项目的pom.xml需要增加tar的插件
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <configuration>
+        <appendAssemblyId>false</appendAssemblyId>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <descriptors>
+          <descriptor>${project.basedir}/assembly/dist.xml</descriptor>
+        </descriptors>
+      </configuration>
+      <executions>
+        <execution>
+          <id>make-assembly</id>
+          <phase>package</phase>
+          <goals>
+            <goal>single</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+至于那些run.sh、start.sh之类的shell脚本后期再更新
