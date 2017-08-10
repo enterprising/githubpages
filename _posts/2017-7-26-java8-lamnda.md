@@ -585,5 +585,15 @@ peek好强大，直接在peek方法里面加一个空的方法体，里面就能
 
 # 设计和架构的原则
 
-未完待续
+主要讲了Lambda对传统设计模式的影响，还有就是Lambda的SOLD原则。
+
+## Lambda表达式改变了设计模式
+
+设计模式：<http://blog.tanpeng.net/2017/07/19/designPatterns/>
+
+使用Lambda表达式能让设计模式变得更好更简单。
+
+### 命令者模式
+
+
 
