@@ -91,6 +91,23 @@ LocalTime
 
 说明：DateTimeFormatter.ofPattern()里面可以包含复杂的字符串，只要识别出yyyy mm dd之类的就OK，不会影响到整体。demo中这样是为了满足具体API接口要求的特殊格式化。
 
+# 字符串转换成LocalDateTime
+
+```java
+public static void main(String[] args) {
+  String x = "2017-08-11T06:24:40";
+  LocalDateTime ld = LocalDateTime.parse(x);
+  DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:SS");
+  System.out.println(ld.format(df));
+}
+```
+
+运行结果：
+
+> 2017-08-11 06:24:00
+
+说明：LocalDateTime.parse(字符串)，可以将目标字符串转换成LocalDataTime对象。
+
 # time类详细介绍
 
 Java 8 的java.time中，主要包含了：
