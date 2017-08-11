@@ -108,6 +108,38 @@ public static void main(String[] args) {
 
 说明：LocalDateTime.parse(字符串)，可以将目标字符串转换成LocalDataTime对象。
 
+返回的是：//精确到秒 得到相对于1970-01-01 00:00:00 UTC的一个时间 
+
+那么问题来了，时间戳是秒还是毫秒呢？
+
+答案是秒。所以通过上面说的这种方法能正确的得到时间戳。
+
+时区是Java8时间类里面的一个比较重要的点，虽然略麻烦，但是还是比较重要的。
+
+# 时区问题
+
+> ZoneId.of("xxxx");
+
+xxxx是字符串，可以用： System.out.println(ZoneId.getAvailableZoneIds()); 找出自己想要的时区。
+
+获取系统时区：
+
+> ZoneId.systemDefault()
+
+# LocalDateTime转时间戳
+
+新的时间类对时区特别敏感。
+
+> LocalDateTime r = LocalDateTime.now();
+>
+> System.out.println(time.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond());
+
+输出：1502436630
+
+说明：最重要的是时间戳：atZone(xx)，里面具体的时区怎么设置，在上一小节已经说明了。
+
+设置好时区之后，xxx.toInstant().getEpochSecond();
+
 # time类详细介绍
 
 Java 8 的java.time中，主要包含了：
