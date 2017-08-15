@@ -97,4 +97,81 @@ SortedSet
 
 # 队列
 
-未完待续.. 上班时间到了
+除了并发应用，Queue在Java SE5中仅有的两个实现是：LinkedList和PriorityQueue，它们的差异在于排序行为而不是性能。
+
+看个例子吧
+
+![两种队列的比较](https://ws4.sinaimg.cn/large/006tKfTcgy1fiko98l7aqj30mc0gcwhe.jpg)
+
+根据上面的运行结果，我们可以发现：除了优先级队列，其它的都是精确地按照元素被放置的顺序产生它们。
+
+## 优先级队列
+
+一个类继承PriorityQueue，重写里面的compareTo方法。就能根据自己想要的想过进行队列里面的优先级排序了。
+
+## 双向队列
+
+双向队列又叫双端队列，其实就是一种特殊的队列。但是你可以在任意一端添加或移除元素。
+
+LinkedList中包含支持双向队列的方法，但是Java标准类库中目前（Java 5）没有任何显示的用于双向队列的接口。因此，LinkedList无法去实现那样的接口。
+
+所以.. 字节写一个Deque类吧，直接从LinkedList中暴露方法。
+
+这就看你数据结构理解的怎么样了。
+
+<br/>
+
+# 理解Map
+
+Map的中文名叫做.. 地图，也叫做映射表或者关联数组。它的基本思想是维护键值对关联。因此你可以根据键来查找值。
+
+用得比较多的Map有：HashMap、TreeMap、LinkedHashMap、WeakHashMap、ConcurrentHashMap、IdentityHashMap。它们有继承了Map接口，但是行为特性不同。不同表现在：效率、键值对的保存及呈现次序、对象的保存周期、映射表如何在多线程程序中工作和判定“键”等价的策略等方面。
+
+可以说设计者想得非常周全。
+
+## 性能
+
+这里的性能主要表现在 get() 方法上面。如果是一般的线性搜索的话，执行的速度会非常慢。HashMap就比较厉害了。它使用了特殊的值，称为 **散列码** 。
+
+散列码是“相对唯一”的，用以代表对象的int值，它是通过将该对象的某些信息进行转换而生成的。
+
+hashCode()是根类Object中的方法，因此所有Java对象都能产生散列码。HashMap就是使用对象的 hashCode() 进行快速查询的，这种方法能够显著提高性能。
+
+| Map大家族            | 特点                                       |
+| ----------------- | :--------------------------------------- |
+| HashMap           | 1、如果没有特殊要求也的话，这是默认实现方式，因为它快。             |
+| LinkedHashMap     | 1、类似上面，但迭代遍历的时候它快一些。2、按照插入顺序或者LRU排序。     |
+| TreeMap           | 1、基于红黑树实现。按照Comparator排序。2、是唯一一种可以返回字数的Map。 |
+| WeakHashMap       | 弱键映射、允许释放映射所指向的对象。                       |
+| ConcurrentHashMap | 1、线程安全。2、不涉及同步加锁，3、Segment和MapEntry.. 嗯，也是锁。 |
+| IdentityHashMap   | 使用==代替equals()对 键 进行比较的散列映射。用于特殊情况。      |
+
+## SortedMap
+
+SortedMap（TreeMap是其现阶段的唯一实现.. 嗯现阶段是Java 5），可以确保键处于排序状态。
+
+Java 7 有 ConcurrentSkipListMap, TreeMap、
+
+里面排序有个非常核心的东西，就是comparator。
+
+## LinkedHashMap
+
+看到Linked就知道它和链表有关。一般和HashMap没啥区别，但它在内部维护了一个链表，用来记录元素的插入顺序。所以在遍历键值对的时候，能以元素的插入顺序输出。
+
+<br/>
+
+# 散列与散列码
+
+.. 原来，这东西在书上已经讲过了。唉.. 
+
+正确的equals()方法必须满足5个条件：
+
+- 自反性。对于任意 x , x.equals(x) 放阿飞一定返回 true
+- 对称性。对于任意的 x 和 y，如果y.equals(x)返回true，那么x.equals(y)也要返回true
+- 传递性，对任意x 、y、 z，如果x.equals(y)返回true，y.equals(z)返回true，那么x.equlas(z)也一定返回true
+- 一致性，对于任意的x和y，如果对象中用于等价比较的信息没有改变，那么无论调用x.equals(y)多少次。返回的结果应该保持一致，要么一直是true要么一直是false
+- 对于任何不是null的x，x.equals(null)一定返回false
+
+## 理解hashCode()
+
+未完待续,,,
