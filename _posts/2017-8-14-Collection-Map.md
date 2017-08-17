@@ -261,3 +261,280 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 ```
 
 摘抄自书上的demo。。这个可以说是非常经典了。
+
+里面有个非常重要的技术点。散列表中的“槽位”通常称为 桶位 （bucket）。为了使散列分布均匀，桶的数量通常使用质数.. 然而，事实证明，质数并不理想。因为，取余运算开销过大，所以一般使用 2 的整数次方当长度，然后用掩码代替除法，直接把取余的开销给消除掉了。
+
+## 覆盖hashCode()
+
+难怪上面那个代码看着怪怪的.. 就知道不是直接对SIZE取模嘛。
+
+bucket数组的下标值的产生，依赖于具体的HashMap对象的容量，而容量的改变又与容器的 **充满程度** 和 **负载因子** 有关。hashCode()生成的结果，经过处理后成为bucket的下标。
+
+hashCode() 最重要的一点就是：无论何时，对同一个对象调用hashCode()都应该生成同样的值。
+
+在Effective Java Programming Language Guide 这本书里面，Joshua Bloch 给出了一份hashCode()建议模板。
+
+![屏幕快照 2017-08-17 下午6.04.32](https://ws3.sinaimg.cn/large/006tKfTcgy1fimvoks3j8j30vs0hl76z.jpg)
+
+代码：
+
+```java
+public class CountedString {
+    private static List<String> created =
+            new ArrayList<String>();
+    private String s;
+    private int id = 0;
+    public CountedString(String str) {
+        s = str;
+        created.add(s);
+        // id is the total number of instances
+        // of this string in use by CountedString:
+        for (String s2 : created)
+            if (s2.equals(s))
+                id++;
+    }
+    public String toString() {
+        return "String: " + s + " id: " + id +
+                " hashCode(): " + hashCode();
+    }
+    public int hashCode() {
+        // The very simple approach:
+        // return s.hashCode() * id;
+        // Using Joshua Bloch's recipe:
+        int result = 17;
+        result = 37 * result + s.hashCode();
+        result = 37 * result + id;
+        return result;
+    }
+    public boolean equals(Object o) {
+        return o instanceof CountedString &&
+                s.equals(((CountedString) o).s) &&
+                id == ((CountedString) o).id;
+    }
+    public static void main(String[] args) {
+        Map<CountedString, Integer> map =
+                new HashMap<CountedString, Integer>();
+        CountedString[] cs = new CountedString[5];
+        for (int i = 0; i < cs.length; i++) {
+            cs[i] = new CountedString("hi");
+            map.put(cs[i], i); // Autobox int -> Integer
+        }
+        print(map);
+        for (CountedString cstring : cs) {
+            print("Looking up " + cstring);
+            print(map.get(cstring));
+        }
+    }
+}
+```
+
+还有一点，重写hashCode()的时候，equals()也要注意一下。
+
+<br/>
+
+# 选择接口的不同实现
+
+主要有两大接口：Collection和Map，五种非常常用的集合类：List、Queue、Set、HashMap和TreeMap。前三个是实现的Collection接口。
+
+有三个是过时的，最好不要用：Hashtable、Vector和Stack。Hashtable是线程安全的.. 但太烂了。HashMap不是，如果想要线程安全，那么可以使用 currentHashMap。
+
+ArrayList和LinkedList...  这个不说了，每次都是这个，要吐了。
+
+说一下Set的三个实现吧，TreeSet、HashSet和LinkedHashSet。HashSet是最常用的，查询的速度最快；LinkedHashSet保持元素的插入顺序；TreeSet基于TreeMap，生成一个总是处于排序状态的Set。
+
+按照自己的需要，选择合适的容器。
+
+## 性能测试框架
+
+.. 作者写了个demo，专门测试各种集合类的性能。计算其所有操作所需要的纳秒数。具体代码去我GitHub上面翻。当然，网上肯定还有更好的。
+
+## 对List的选择
+
+直接看测试结果
+
+```java
+--- Array as List ---
+ size     get     set
+   10      22      24
+  100      18      27
+ 1000      12      18
+10000      13      16
+--------------------- ArrayList ---------------------
+ size     add     get     set iteradd  insert  remove
+   10     238      18      17      32     279     180
+  100      25      25      23      93    2194     117
+ 1000      41      20      17      83     341     127
+10000      15      15      17     539    1440     550
+--------------------- LinkedList ---------------------
+ size     add     get     set iteradd  insert  remove
+   10      83      30      31      58     767     187
+  100      14      46      46      28      93      26
+ 1000      22     420     424      11      66      16
+10000      38    4886    4967      92      93      16
+----------------------- Vector -----------------------
+ size     add     get     set iteradd  insert  remove
+   10     115      15      18      32     279      61
+  100      10      14      23      27     292      30
+ 1000      10      14      16      63     191      84
+10000      10      13      15     491    1441     576
+-------------------- Queue tests --------------------
+ size    addFirst     addLast     rmFirst      rmLast
+   10          86          60          80          88
+  100          21          16          15          16
+ 1000          22          41          38          37
+10000          23          14          21          18
+```
+
+将ArrayList作为默认首选，其它看情况选择。插入删除的情况过多的时候，才考虑LinkedList。
+
+## 微基准测试的危险
+
+简单的说就是，防止JVM爆掉，要注意。注意死循环，和边界条件。
+
+## 对Set的选择
+
+```java
+------------- TreeSet -------------
+ size       add  contains   iterate
+   10       511       133        58
+  100       100        53         9
+ 1000        84        73         6
+10000        80        62         6
+------------- HashSet -------------
+ size       add  contains   iterate
+   10       152       128        48
+  100        18         3         8
+ 1000        14         6         8
+10000        15         6         5
+---------- LinkedHashSet ----------
+ size       add  contains   iterate
+   10       396        67        25
+  100        39        15         9
+ 1000        54        26         9
+10000        27        22         9
+```
+
+HashSet的性能总是要比TreeSet好，特别是添加和查询元素的时候。
+
+TreeSet存在的唯一卖点就是：它可以维持元素的排序状态，所以，只有需要一个排好序的Set的时候，才应该使用TreeSet。迭代也是一个优势，TreeSet的迭代通常要比HashSet要快。
+
+另外LinkedHashSet的插入操作，代价比HashSet要高，因为它需要维护一个链表所带来的额外开销。
+
+## Map的选择
+
+```java
+---------- TreeMap ----------
+ size     put     get iterate
+   10     452     100      42
+  100     132      32       7
+ 1000      93      67       8
+10000      88      63       9
+---------- HashMap ----------
+ size     put     get iterate
+   10     314     126      47
+  100      15       3       9
+ 1000      13       6       5
+10000      17       9       8
+------- LinkedHashMap -------
+ size     put     get iterate
+   10     173      56      19
+  100      37      11       7
+ 1000      44      13       7
+10000      29      13       7
+------ IdentityHashMap ------
+ size     put     get iterate
+   10      89      35      24
+  100      21      40      15
+ 1000      93      94      17
+10000     101     101      19
+-------- WeakHashMap --------
+ size     put     get iterate
+   10     122      35      21
+  100      31       9      12
+ 1000      33      12      16
+10000      28       9      17
+--------- Hashtable ---------
+ size     put     get iterate
+   10      94      36      27
+  100      33      21       9
+ 1000      39      26       9
+10000      29      25      10
+```
+
+除了IdentityHashMap，所有的Map实现的插入操作都会随着Map尺寸的变大而明显变慢。但查找还是挺快的。
+
+Hashtable的性能和HashMap差不多，但是前者线程安全，后者非线程安全。但.. 前面那个已经过时了。它们的底层的存储和查找机制是相同的，所以性能才差不多。HashMap是Hashtable的替代品。
+
+TreeMap比HashMap要慢一点，嗯，你可以认为所有的hash开头的都比tree开头的要快。一般用HashMap，只有当Map始终保持有序的时候才需要使用TreeMap。
+
+LinkedHashMap在插入的时候比HashMap要慢一点，但是它可以维持元素的插入顺序。嗯，内部实现的话是通过一个链表维护的。
+
+IdentityHashMap，这是个奇葩。使用 == 来比较元素，不使用equals()。
+
+… 可以手动调整HashMap来提高性能。
+
+负载因子 = 尺寸/容量。 尺寸是指表中当前存储的项数，容量是指桶的容量。空表的负载因子为0，半慢表的负载因子是0.5。
+
+HashMap和HashSet都允许使用者指定负载因子的构造器，当负载情况达到负载因子的水平时，容量将会自动增加（桶位数）。实现方式是让容量大致加倍，并将现有对象分布到新的桶位集中。（这叫做，再散列）
+
+HashMap的默认负载因子是0.75
+
+<br/>
+
+# 实用方法
+
+最强大的还是官方API
+
+## List的排序和查询
+
+用 binarySearch()，嗯，二分查找
+
+shuffle()。这个方法是用来打乱List的顺序。
+
+## 设定Collection或Map为不可修改
+
+只读容器
+
+> Collection<String> c = Collections.unmodifiableCollection(new ArrayList<String>(data));
+
+## Collection或Map的同步控制
+
+synchronized..
+
+ConcurrentHashMap、Hashtable、阻塞队列（BlockingQueue）、Vector。
+
+<br/>
+
+# 持有对象
+
+对象是可获得的，是指对象可在程序中的某处找到，这意味着你在栈中有一个普通的引用，而它正指向此对象。
+
+如果一个对象是“可获得的”，垃圾回收器就不能释放它，因为它仍然为你的程序所用。
+
+如果一个对象不是“可获得的”，垃圾回收期就能回收。
+
+如果想继续持有对某个对象的引用，希望以后还能访问到该对象，但是也希望能够允许垃圾回收器释放它，这时候就需要使用Reference对象。
+
+Reference对象... 嗯，代理模式。可以作为你和普通引用之间的代理。
+
+## WeakHashMap
+
+非常特殊的Map、用来保存WeakReference。它使得规范映射更易于使用。
+
+在这种映射中，每个值只保存一份实例以节省存储空间。当程序需要那个”值“的时候，变在映射中查询现有的对象，然后使用它。
+
+.. 所以，WeakHashMap，**允许垃圾回收器自动清理键和值**。允许清理元素的触发条件是：不再需要次键了。
+
+<br/>
+
+# Java 1.0/1.1的容器
+
+老古董了.. 基本上都被遗弃了
+
+Vector、Hashtable、Stack、BitSet.. 过时了，就不花精力去研究了。
+
+<br/>
+
+# 总结
+
+hashCode() 是最大的亮点，Hash的实现方式可以说是非常机智了。其它东西的话，都还不错，然后，有需要的话，多查官方API。
