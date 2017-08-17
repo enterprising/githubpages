@@ -140,6 +140,35 @@ xxxx是字符串，可以用： System.out.println(ZoneId.getAvailableZoneIds())
 
 设置好时区之后，xxx.toInstant().getEpochSecond();
 
+# long转时间戳再转LocalDateTime
+
+例如，startTime = 1502899200，我们需要转成LocalDateTime。
+
+> Instant instant = Instant.ofEpochSecond(startTime);
+>
+> LocalDateTime slocal = LocalDateTime.ofInstant(instant,ZoneId.systemDefault());
+
+Instant是java.time包里面的时间戳。
+
+先把long对象转换成时间戳对象，然后调用LocalDateTime.ofInstant()，这个方法的第一个参数是时间戳，第二个参数是时区。
+
+加上格式转换，看下运行效果：
+
+```java
+DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+Instant instant = Instant.ofEpochSecond(startTime);
+LocalDateTime slocal = LocalDateTime.ofInstant(instant,ZoneId.systemDefault());
+
+System.out.println(startTime);
+System.out.println("在 "+ slocal.format(dateTimeFormatter)+ " ~ ");
+```
+
+运行效果：
+
+> 1502899200
+>
+> 在 2017-08-17 00:00:00 ~ 
+
 # time类详细介绍
 
 Java 8 的java.time中，主要包含了：
