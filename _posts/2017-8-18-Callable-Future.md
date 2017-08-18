@@ -16,11 +16,9 @@ tags: [Java,多线程]
 
 # 关于线程多线程的介绍
 
-安利我之前写的一篇：[《线程、进程、多线程、守护线程、线程池》](http://blog.tanpeng.net/2017/08/12/thread/)    
+安利我之前写的一篇：[线程、进程、多线程、守护线程、线程池](http://blog.tanpeng.net/2017/08/12/thread/)  。
 
-
-
-#demo代码
+# 代码
 
 线程代码：MyCallable
 
