@@ -123,9 +123,11 @@ public class Singleton_4 {
 
     public static Singleton_4 uniqueInstance = null;
 
-    public static synchronized Singleton_4 getInstance() {
+    public static Singleton_4 getInstance() {
         if (uniqueInstance == null) {
-            uniqueInstance = new Singleton_4();
+            synchronized(Singleton_4.class){
+              uniqueInstance = new Singleton_4();
+            }
         }
         return uniqueInstance;
     }
