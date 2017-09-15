@@ -74,6 +74,6 @@ tags: [其它]
 
 我叫谭鹏，来自计算机1403班。
 
-邮箱：admin@tanpeng.net 或者 peng.tan@ele.me
+邮箱：<admin@tanpeng.net> 或者 <peng.tan@ele.me>
 
 QQ：613258200（一般不看，但也可以加）
