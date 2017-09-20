@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 并发
-date: 2017-9-13 10:00
+date: 2017-9-20 10:00
 categories: Java
 tags: [Java]
 ---
@@ -126,3 +126,81 @@ yield();
 
 基本上所有的并发模式在解决线程冲突问题的时候，都是采用序列化访问共享资源的方式。这意味着每次只能有一个线程访问资源。其实主要就是加锁。因为锁语句产生了一种互相排斥的效果，所以这种机制常常被称为互斥量（mutex）。
 
+Java中的解决方法目前主要是：synchronized。
+
+要控制对共享资源的访问，首先需要把它包装进一个对象。然后把所有要访问这个资源的方法全都定义成synchronized。
+
+对对象加锁的话，可以防止对static数据的并发访问。
+
+其次还有一定，在使用并发时，需要将域设置为private。否则synchronized关键字就不能防止其它任务直接访问域，这样就可能会产生冲突。  
+
+## 什么时候需要用同步
+
+Brian同步规则：如果你正在写一个变量，它可能接下来将被另一个线程读取，或者正在读取一个上一次已经被另一个线程写过的变量，那么你必须使用同步。并且，读写线程都必须用相同的锁来进行同步。
+
+## 原子性和易变性
+
+原子操作是不能被线程调度机制中断的操作。
+
+这里提到了 volatile 关键字，说这个关键字可能使得线程对资源的操作是可见的。但如果一个域的值依赖于它之前的值时，volatile就无法工作了。 比如： i++，这个在Java中不是原子性的，但在C++里面是的。
+
+## 原子类
+
+Java 5引入的 AtomicInteger、AtomicLong、AtomicRefernce等。
+
+##  临界区
+
+概念：有时你可能只是希望防止多个线程同时访问方法内部的部分代码而不是防止访问整个方法。通过这种方式 分离处理的代码段被称为 临界区（critical section）
+
+synchronized(syncObject){
+
+​	// …..
+
+}
+
+临界区也叫做同步代码块。
+
+## 在其它对象上同步
+
+```java
+class DualSynch {
+  private Object syncObject = new Object();
+  public synchronized void f() {
+    for(int i = 0; i < 5; i++) {
+      print("f()");
+      Thread.yield();
+    }
+  }
+  public void g() {
+    synchronized(syncObject) {
+      for(int i = 0; i < 5; i++) {
+        print("g()");
+        Thread.yield();
+      }
+    }
+  }
+}
+public class SyncObject {
+  public static void main(String[] args) {
+    final DualSynch ds = new DualSynch();
+    new Thread() {
+      public void run() {
+        ds.f();
+      }
+    }.start();
+    ds.g();
+  }
+}
+```
+
+这个demo说明了：两个任务可以同时进入同一个对象，只要对象上的方法是在不同的锁上同步的即可。
+
+## 线程本地存储
+
+创建和管理线程本地存储可以由  java.lang.ThreadLocal类来实现。
+
+防止任务在共享资源上产生冲突，除了之前的加锁。还一种方式就是根除对变量的共享。线程本地存储可以**为使用相同变量的每个不同的线程都创建不同的存储。**
+
+# 终结任务
+
+先研究一下..
