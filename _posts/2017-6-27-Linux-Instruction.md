@@ -377,6 +377,40 @@ Time ：在top交互界面按shift+t。
 
 ![屏幕快照 2017-07-24 上午11.29.22](https://ws1.sinaimg.cn/large/006tNc79ly1fhute2mk2ej30vg08cjtc.jpg)
 
+## which xxx
+
+查询运行文件的所在路径
+
+## whereis xxx
+
+用于查看文件的安装路径
+
+比如 whereis java
+
+会输出：
+
+> ➜  ~ whereis java
+>
+> /usr/bin/java
+
+## sudo find  / -name 'postgres'
+
+以root权限，查找 postgres的安装路径
+
+## 环境变量相关
+
+1、打开Terminal（终端）
+
+2、输入：vi ~/.bash_profile
+
+3、设置PATH：export PATH=/usr/local/mysql/bin:$PATH
+
+4、输入：:wq    //保存并退出vi
+
+5、修改立即生效：**source ~/.bash_profile**
+
+6、查看环境变量的值：echo $PATH
+
 <br/>
 
 # 复杂命令
