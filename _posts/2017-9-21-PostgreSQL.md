@@ -20,3 +20,8 @@ tags: [PG]
 
 在Mac端，MySQL可以使用 ``quit;`` 退出。PostgreSQL是退出命令是：``\q``
 
+三、关于连接远程PG数据库
+
+psql -Uxxx（用户名） -h127.0.0.1（远程ip地址） -pxxx（端口号） -dxxx（数据库名） -W（回车输入密码）
+
+更加详细的内容需要：psql - - help，看提示就知道了。
