@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 《Linux/Unix系统编程手册》-第四章 文件I/O
-date: 2017-10-1 9:00
+date: 2017-10-4 9:00
 categories: Core
 tags: [Core]
 ---
