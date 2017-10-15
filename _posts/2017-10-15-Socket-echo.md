@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Socket编程-实现echo服务
+title: Socket编程-实现echo服务(单进程，多进程，多线程三个版本)
 date: 2017-10-15 12:00
 categories: 计算机网络
 tags: [计算机网络]
@@ -170,4 +170,116 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-更加高深的东西，等我再研究一会儿。
+# 多线程版
+
+多线程版和多进程版，都是在单进程版的基础上进行优化修改的。
+
+## 原理说明
+
+像多进程版的 fork() 一样，在多线程版里面最关键的也是一个系统调用。**pthread_create()**。
+
+1. pthread_t
+
+   说明：这是一个线程的标识符，类似于 Socket标识符socketID、文件标识符fd那种。
+
+2. pthread_create()
+
+   原型是：
+
+   > int pthread_create(pthread_t * __restrict, const pthread_attr_t * __restrict,      void *(*)(void *), void * __restrict);
+
+   简单说明一下它的四个参数：
+
+   - 第一个参数是指向线程标识符的指针；
+   - 第二个参数是线程的属性（pthread_attr_t）;
+   - 第三个参数是线程运行函数的起始地址；
+   - 第四个参数是线程运行函数的参数，没有的时候设置NULL；
+
+   使用demo：
+
+   > pthread_t clientThread;
+   > pthread_create(&clientThread, NULL, &echo, &clientID);
+
+   echo函数的定义：
+
+   > void *echo(void *argv) {}
+
+   echo函数里对参数的获取：
+
+   > int *temp = (int *) argv;
+   >
+   > int id = *temp;
+
+## 代码
+
+```c
+//
+// 多线程版 echo 服务
+// Created by peng.tan on 17/10/15.
+//
+#include <cstdlib>
+#include <netinet/in.h>
+#include <pthread.h>
+#include <strings.h>
+#include <stdio.h>
+#include <zconf.h>
+
+void *echo(void *argv) {
+    //获取传进来的参数
+    int *clientID_Temp = (int *) argv;
+    int clientID = *clientID_Temp;
+    char buf[1024];
+    bzero(buf, 1024);
+    while (recv(clientID, buf, sizeof(buf), 0) > 0) {
+        printf("receive: %s", buf);
+        send(clientID, buf, strlen(buf), 0);
+    }
+    close(clientID);
+    return NULL;
+}
+
+int main(int argc, char *argv[]) {
+
+    int prot = atoi(argv[1]);
+    int socketID;
+    struct sockaddr_in servAddr;
+
+    socketID = socket(AF_INET, SOCK_STREAM, 0);
+    servAddr.sin_family = AF_INET;
+    servAddr.sin_port = htons(prot);  //将本地的无符号短整型变为 网络字节序
+
+    //INADDR_ANY就是指定地址为0.0.0.0的地址，这个地址事实上表示不确定地址
+    servAddr.sin_addr.s_addr = htonl(INADDR_ANY); //将本地的无符号长整型变为 网络字节序；
+
+    bind(socketID, (struct sockaddr *) &servAddr, sizeof(servAddr));
+    listen(socketID, 10);
+
+    while (1) {
+        int clientID = accept(socketID, NULL, NULL);
+        pthread_t clientThread;
+        pthread_create(&clientThread, NULL, &echo, &clientID);
+    }
+}
+```
+
+# 如何查看效果
+
+1. 进入shell控制台
+
+2. 进入项目目录下面
+
+   gcc -o xxx(名字) xxx.c(文件名)
+
+3. 之后会生成一个 xxx.out 的文件
+
+   ./xxx 就能运行了，有参数的话，直接在后面加参数
+
+至此，服务端就启起来了。关闭的话，除了代码内关闭逻辑，还可以用 ctrl + c 来关闭。
+
+测试运行效果的话，这里没写客户端。客户端用 telnet 指令代替了。
+
+打开另一个shell控制台，输入 telnet 127.0.0.1 xxx(服务的端口号)
+
+如果服务端没问题，那这时候就连上去了。直接输入内容，然后回车。就触发了send()系统调用，这时候你就能看到服务端返回的是不是你输入的东西了。
+
+因为这里写了三个版本，每个版本的效果不太一样。就不放截图了。
