@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Socket编程-实现echo服务(单进程，多进程，多线程三个版本)
+title: Socket编程-实现echo服务(单线程，多进程，多线程三个版本)
 date: 2017-10-15 12:00
 categories: 计算机网络
 tags: [计算机网络]
@@ -16,7 +16,7 @@ tags: [计算机网络]
 
 主要目的是为了熟悉中间的过程和原理。
 
-# 单进程版
+# 单线程版
 
 ## 原理说明
 
@@ -41,46 +41,75 @@ tags: [计算机网络]
 ## 代码
 
 ```c
-#include <stdlib.h>
+//
+// 单线程版 echo 服务
+// Created by peng.tan on 17/10/15.
+//
 #include <sys/socket.h>
-#include <stdio.h>
 #include <netinet/in.h>
-#include <strings.h>
-#include <zconf.h>
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#define BUFFER_SIZE 1024 //缓冲区长度
+#define backlog 5  // 排队等待Socket连接的最大数目
+/**
+ * 读取客户端Socket发来的信息，并处理、最后返回
+ * @param client
+ */
+void echo(int client_sockfd) {
+    char senBuff[BUFFER_SIZE];
+    char receiveBuff[BUFFER_SIZE];
+    memset(senBuff, 0, sizeof(senBuff));
+    memset(receiveBuff, 0, sizeof(receiveBuff));
+    while (recv(client_sockfd, receiveBuff, sizeof(receiveBuff), 0) > 0) {
+        printf("received: %s", receiveBuff);
+        strcpy(senBuff, receiveBuff);
+        send(client_sockfd, senBuff, strlen(senBuff), 0);
+    }
+    close(client_sockfd);
+}
 int main(int argc, char *argv[]) {
-    int port = atoi(argv[1]);
-    int socketId, clientSocktId;
-    char buf[1024];
-    struct sockaddr_in sockAddr;
-    socketId = socket(AF_INET, SOCK_STREAM, 0);
-    if (socketId < 0) {
-        perror("socket()");
+    int sockfd = 0;
+    int client_sockfd = 0;
+    int ref = 0;
+    int port = 1234;
+    struct sockaddr_in serverAddress;
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) {
+        perror("socket() error!");
         exit(-1);
     }
-    // 帮地址三元组赋值
-    sockAddr.sin_port = htons(port);
-    sockAddr.sin_family = AF_INET;
-    sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    int b = bind(socketId, (struct sockaddr *) &sockAddr, sizeof(sockAddr));
-    if (b < 0) {
-        perror("bind()");
+    if (argv[1] != NULL) {
+        port = atoi(argv[1]);
+    }
+    memset(&serverAddress, 0, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+    serverAddress.sin_port = htons(port);
+    ref = bind(sockfd, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+    if (ref < 0) {
+        perror("bind() error!");
         exit(-1);
     }
-    int l = listen(socketId, 6);
-    if (l < 0) {
-        perror("listen()");
+    ref = listen(sockfd, backlog);
+    if (ref < 0) {
+        perror("listen() error!");
         exit(-1);
     }
+    struct sockaddr_in clientAddress;
+    memset(&clientAddress, '0', sizeof(clientAddress));
+    socklen_t cli_len;
+    cli_len = sizeof(clientAddress);
     while (1) {
-        clientSocktId = accept(socketId, NULL, NULL);
-        memset(buf, 0, sizeof(buf));
-        while (recv(clientSocktId, buf, sizeof(buf), 0) > 0) {
-            printf("receive: %s", buf);
-            send(clientSocktId, buf, strlen(buf), 0);
-            memset(buf, 0, sizeof(buf));
+        client_sockfd = accept(sockfd, (struct sockaddr *) &clientAddress, &cli_len);
+        if (client_sockfd < 0) {
+            perror("accept() error!");
+            exit(-1);
         }
-        close(clientSocktId);
-        exit(0);
+        printf("client id:%s, port:%d\n", inet_ntoa(clientAddress.sin_addr), ntohs(clientAddress.sin_port));
+        echo(client_sockfd);
     }
 }
 ```
@@ -116,55 +145,88 @@ fpid = fork();
 ## 代码
 
 ```c
-#include <stdlib.h>
+//
+// 多进程版 echo 服务
+// Created by peng.tan on 17/10/15.
+//
 #include <sys/socket.h>
-#include <stdio.h>
 #include <netinet/in.h>
-#include <strings.h>
-#include <zconf.h>
-int main(int argc, char *argv[]) {
-    int port = atoi(argv[1]);
-    int socketId, clientSocktId;
-    pid_t childId;
-    char buf[1024];
-    struct sockaddr_in sockAddr;
-    socketId = socket(AF_INET, SOCK_STREAM, 0);
-    if (socketId < 0) {
-        perror("socket()");
-        exit(-1);
-    }
-    // 帮地址三元组赋值
-    sockAddr.sin_port = htons(port);
-    sockAddr.sin_family = AF_INET;
-    sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    int b = bind(socketId, (struct sockaddr *) &sockAddr, sizeof(sockAddr));
-    if (b < 0) {
-        perror("bind()");
-        exit(-1);
-    }
-    int l = listen(socketId, 6);
-    if (l < 0) {
-        perror("listen()");
-        exit(-1);
-    }
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
+#define BUFFER_SIZE 1024 //缓冲区长度
+#define backlog 5  // 排队等待Socket连接的最大数目
+
+/**
+ * 读取客户端Socket发来的信息，并处理、最后返回
+ * @param client
+ */
+void echo(int client_sockfd) {
+    char receiveBuff[BUFFER_SIZE];
+    memset(receiveBuff, 0, sizeof(receiveBuff));
+    while (recv(client_sockfd, receiveBuff, sizeof(receiveBuff), 0) > 0) {
+        printf("received: %s", receiveBuff);
+        send(client_sockfd, receiveBuff, strlen(receiveBuff), 0);
+        memset(receiveBuff, 0, sizeof(receiveBuff));
+    }
+    close(client_sockfd);
+}
+int main(int argc, char *argv[]) {
+    int port = 1234;
+    int sockfd, client_sockfd;
+    int ret = 0;
+    struct sockaddr_in serv_addr;
+    if (argv[1] != NULL)
+        port = atoi(argv[1]);
+    pid_t child_pid;
+    printf("starting server..\n");
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) {
+        perror("socket() error!");
+        exit(-1);
+    }
+    memset(&serv_addr, 0, sizeof(serv_addr));
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_addr.sin_port = htons(port);
+
+    ret = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    if (ret < 0) {
+        perror("bind socket error!");
+        exit(-1);
+    }
+    ret = listen(sockfd, backlog);
+    if (ret < 0) {
+        perror("listen socket error");
+        exit(-1);
+    }
+    struct sockaddr_in clientAddress; //保存用户Socket信息
+    memset(&clientAddress, '0', sizeof(clientAddress));
+    socklen_t cli_len;
+    cli_len = sizeof(clientAddress);
     while (1) {
-        clientSocktId = accept(socketId, NULL, NULL);
-        if (clientSocktId != 0) {
-            //创建子进程来处理这个连接上的信息
-            childId = fork();
+        client_sockfd = accept(sockfd, (struct sockaddr *) &clientAddress, &cli_len);
+        if (client_sockfd < 0) {
+            perror("accept error!");
+            exit(-1);
         }
-        if (childId != 0) { //对于父进程来说，这个值是0.
-            close(clientSocktId); //关闭父进程上的这个客户端Socket，因为已经交给子进程去处理了
+        child_pid = fork();  // fork()出一个子进程
+        printf("child_pid = %d\n", child_pid);
+        if (child_pid < 0) {
+            perror("fork progress error!");
+            exit(-1);
+        }
+        // 这里表示，父进程 继续监听连接。continue后面的由子进程处理
+        if (child_pid != 0) {
+            close(client_sockfd);
             continue;
         }
-        memset(buf, 0, sizeof(buf));
-        while (recv(clientSocktId, buf, sizeof(buf), 0) > 0) {
-            printf("receive: %s", buf);
-            send(clientSocktId, buf, strlen(buf), 0);
-            memset(buf, 0, sizeof(buf));
-        }
-        close(clientSocktId);
+        printf("client id:%s, port:%d\n", inet_ntoa(clientAddress.sin_addr), ntohs(clientAddress.sin_port));
+        echo(client_sockfd);
         exit(0);
     }
 }
@@ -217,12 +279,15 @@ int main(int argc, char *argv[]) {
 // 多线程版 echo 服务
 // Created by peng.tan on 17/10/15.
 //
-#include <cstdlib>
+#include <sys/socket.h>
 #include <netinet/in.h>
-#include <pthread.h>
-#include <strings.h>
+#include <arpa/inet.h>
 #include <stdio.h>
-#include <zconf.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <pthread.h>
+#define backlog 5
 
 void *echo(void *argv) {
     //获取传进来的参数
@@ -233,31 +298,49 @@ void *echo(void *argv) {
     while (recv(clientID, buf, sizeof(buf), 0) > 0) {
         printf("receive: %s", buf);
         send(clientID, buf, strlen(buf), 0);
+        bzero(buf, 1024);
     }
     close(clientID);
     return NULL;
 }
-
 int main(int argc, char *argv[]) {
-
-    int prot = atoi(argv[1]);
-    int socketID;
+    int port = 1234;  //默认端口
+    int sockfd;
     struct sockaddr_in servAddr;
-
-    socketID = socket(AF_INET, SOCK_STREAM, 0);
+    int ref = 0;
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) {
+        perror("socket error!");
+        exit(-1);
+    }
+    if (argv[1] != NULL)
+        port = atoi(argv[1]);
     servAddr.sin_family = AF_INET;
-    servAddr.sin_port = htons(prot);  //将本地的无符号短整型变为 网络字节序
-
+    servAddr.sin_port = htons(port);  //将本地的无符号短整型变为 网络字节序
     //INADDR_ANY就是指定地址为0.0.0.0的地址，这个地址事实上表示不确定地址
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY); //将本地的无符号长整型变为 网络字节序；
-
-    bind(socketID, (struct sockaddr *) &servAddr, sizeof(servAddr));
-    listen(socketID, 10);
-
+    ref = bind(sockfd, (struct sockaddr *) &servAddr, sizeof(servAddr));
+    if (ref < 0) {
+        perror("bind socket error!");
+        exit(-1);
+    }
+    ref = listen(sockfd, backlog);
+    if (ref < 0) {
+        perror("listen socket error!");
+        exit(-1);
+    }
     while (1) {
-        int clientID = accept(socketID, NULL, NULL);
+        int clientID = accept(sockfd, NULL, NULL);
+        if (clientID < 0) {
+            perror("accept error");
+            exit(-1);
+        }
         pthread_t clientThread;
         pthread_create(&clientThread, NULL, &echo, &clientID);
+        if (clientThread < 0) {
+            perror("create thread error!");
+            exit(-1);
+        }
     }
 }
 ```
