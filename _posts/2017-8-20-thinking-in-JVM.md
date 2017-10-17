@@ -4,7 +4,6 @@ title: 《深入理解Java虚拟机》-读书笔记
 date: 2017-8-18 16:00
 categories: JVM
 tags: [Java,JVM]
-top: true
 ---
 
 * content
