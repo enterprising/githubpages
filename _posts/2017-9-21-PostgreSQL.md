@@ -25,3 +25,7 @@ tags: [PG]
 psql -Uxxx（用户名） -h127.0.0.1（远程ip地址） -pxxx（端口号） -dxxx（数据库名） -W（回车输入密码）
 
 更加详细的内容需要：psql - - help，看提示就知道了。
+
+四、切换数据库
+
+postgres=# \c exampledb
