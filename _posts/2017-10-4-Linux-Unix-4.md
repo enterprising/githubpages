@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 《Linux/Unix系统编程手册》-第四章 文件I/O
-date: 2017-10-4 9:00
+title: 《Linux/Unix系统编程手册》-文件I/O
+date: 2017-10-22 9:00
 categories: Core
 tags: [Core]
 ---
@@ -28,6 +28,78 @@ tags: [Core]
 - numread = read(fd, buffer, count); 调用从fd指代的文件中读取至多count字节的数据，并存储到buffer中。返回值为实际读取到的字节数，如果再无字节可读，则返回0；
 - numwritten = write(fd, buffer, count); 调用从buffer中读取多达count字节的数据，然后写入由fd指代的文件中。返回实际写入文件中的字节数；
 - status = close(fd); 释放文件描述符 fd 以及与之相关的内核资源。
+
+# I/O系统调用的使用姿势
+
+```c
+//
+// 系统调用 之 文件I/O操作
+//
+
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <zconf.h>
+
+#define BUF_SIZE 1024
+
+int main(int argc, char *argv[]) {
+
+    int inputFd, outputFd, openFlags;
+    mode_t filePerms;
+    ssize_t numRead, numWrite;  //read和write这两个系统调用返回的是读/写的字节数
+    char buf[BUF_SIZE];
+
+    // 文件地址
+    char *pathname = "/Users/enterprising/Desktop/a.txt";
+    char *pathname_write = "/Users/enterprising/Desktop/b.txt";
+
+    inputFd = open(pathname, O_RDONLY);
+    if (inputFd == -1) {
+        perror("open files error!");
+        exit(-1);
+    }
+
+    // 这是 open 的第二个参数，代表访问模式，有只读、只写、读写三种
+    openFlags = O_CREAT | O_WRONLY | O_TRUNC;
+    // 这是 open 的第三个参数，只有当上面是 O_CREATE 的时候才需要加上，代表文件的访问权限
+    filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;  //rw-rw-rw-
+
+    outputFd = open(pathname_write, openFlags, filePerms);
+    if (outputFd == -1) {
+        perror("open files error!");
+        exit(-1);
+    }
+
+    // 将上面读到的内容，写到下面那个文件里
+    numRead = read(inputFd, buf, BUF_SIZE);
+    if (numRead == -1) {
+        perror("read files error!");
+        exit(-1);
+    }
+    numWrite = write(outputFd, buf, numRead);
+
+    if (numWrite != numRead) {
+        perror("can not write whole buffer.");
+        exit(-1);
+    }
+    if (numWrite == -1) {
+        perror("write files error!");
+        exit(-1);
+    }
+
+    //最后需要关闭两个文件
+    if (close(inputFd) == -1) {
+        perror("close input error!");
+        exit(-1);
+    }
+    if (close(outputFd) == -1) {
+        perror("close output error!");
+        exit(-1);
+    }
+}
+```
 
 # 通用 I/O
 
@@ -255,10 +327,6 @@ request参数指定了将在 fd 上的控制操作；
 对于已打开的每个文件，内核都维护有一个文件偏移量，**这决定了下一次读或写操作的起始位置。**
 
 对于未纳入标准IO模型的所有设备和文件操作而言，ioctl()系统调用是一个“百宝箱”。
-
-# 练习
-
-先将上面东西消化一下，晚点更。
 
 
 
