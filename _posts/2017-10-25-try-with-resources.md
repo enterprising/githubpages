@@ -83,7 +83,7 @@ finally exception
 
 输出顺序是关闭资源，catch捕获try里抛出的异常，最后才是执行finally代码。其中关闭资源抛出的异常可以使用Throwable.getSuppressed()获得。
 
-#参考博客
+# 参考博客
 
 1. [Java try-with-resources用法](https://majing.io/questions/778)
 2. [Java 7中的Try-with-resources](http://ifeve.com/java-7%E4%B8%AD%E7%9A%84try-with-resources/)
