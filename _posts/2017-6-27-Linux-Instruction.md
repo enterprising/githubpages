@@ -383,6 +383,12 @@ Time ：在top交互界面按shift+t。
 
 ![屏幕快照 2017-07-24 上午11.29.22](https://ws1.sinaimg.cn/large/006tNc79ly1fhute2mk2ej30vg08cjtc.jpg)
 
+ps主要用于显示当前进程的状态，它有很多很有意思的参数
+
+比如：-aux 显示所有包含其他使用者的进程
+
+ps aux
+
 ## which xxx
 
 查询运行文件的所在路径
