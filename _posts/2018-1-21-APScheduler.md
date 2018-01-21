@@ -53,6 +53,23 @@ sched.add_job(my_job, 'cron', hour='15', minute='*', second='10,20,30,40,50,0')
 
 一般一天执行一次差不多了，看需求吧。
 
+# 新增/删除job
+
+新增：
+
+```python
+job = sched.add_job(multi_ezone_filter, 'cron', hour=hour, minute=minute, second=second,
+                                args=(env_value,))
+```
+
+删除
+
+```python
+job.remove()
+```
+
+
+
 # 参考资料
 
 1. [APscheduler官方文档](http://apscheduler.readthedocs.io/en/latest/userguide.html)
