@@ -42,6 +42,8 @@ MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是
 
 使用xx数据库：use xx
 
+查看数据库下有哪些表(不叫表，叫collections)：show collections
+
 创建数据库：use DATABASE_NAME（自己打）
 
 删除数据库：需要先use这个数据库，然后：db.dropDatabase()
