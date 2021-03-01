@@ -68,11 +68,11 @@ public class Singleton_1 {
  * 单例模式的懒汉式写法       【线程不安全，不可用】
  */
 public class Singleton_2 {
-    public Singleton_2() {
+    private Singleton_2() {
 
     }
 
-    public static Singleton_2 uniqueInstance = null;
+    private static Singleton_2 uniqueInstance = null;
 
     public static Singleton_2 getInstance() {
         if (uniqueInstance == null) {
@@ -94,10 +94,10 @@ public class Singleton_2 {
  * 缺点：加锁的效率太低
  */
 public class Singleton_3 {
-    public Singleton_3() {
+    private Singleton_3() {
     }
 
-    public static Singleton_3 uniqueInstance = null;
+    private static Singleton_3 uniqueInstance = null;
 
     public static synchronized Singleton_3 getInstance() {
         if (uniqueInstance == null) {
@@ -118,10 +118,10 @@ public class Singleton_3 {
  * 懒汉式加锁 --不安全写法 【不可用】
  */
 public class Singleton_4 {
-    public Singleton_4() {
+    private Singleton_4() {
     }
 
-    public static Singleton_4 uniqueInstance = null;
+    private static Singleton_4 uniqueInstance = null;
 
     public static Singleton_4 getInstance() {
         if (uniqueInstance == null) {
@@ -146,10 +146,10 @@ public class Singleton_4 {
  */
 public class Singleton_5 {
 
-    public Singleton_5() {
+    private Singleton_5() {
     }
 
-    public static Singleton_5 uniqueInstance = null;
+    private volatile static Singleton_5 uniqueInstance = null;
 
     public static synchronized Singleton_5 getInstance() {
         if (uniqueInstance == null) {
