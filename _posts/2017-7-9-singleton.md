@@ -233,4 +233,4 @@ public enum Singleton_Enum {
 
 参考博客：
 
-<http://blog.csdn.net/dmk877/article/details/50311791>f
+<http://blog.csdn.net/dmk877/article/details/50311791>
