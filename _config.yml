@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Peng's Blog
-brief-intro: 只记录和技术相关的东西
+brief-intro: 探索世界，猫肥家润
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://blog.tanpeng.net" # the base hostname & protocol for your site
 
