@@ -6,9 +6,6 @@ categories: 其它
 tags: [人生]
 ---
 
-* content
-  {:toc}
-
 ## 关于我
 2022-08-17补充更新
 
