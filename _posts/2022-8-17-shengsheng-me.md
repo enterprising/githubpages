@@ -2,8 +2,8 @@
 layout: post
 title: 关于本站和作者的说明
 date: 2022-8-17 11:00
-categories: 其它
-tags: [人生]
+categories: 个人
+tags: [人生, 个人]
 top: true
 ---
 
