@@ -4,7 +4,6 @@ title: Linux基础指令
 date: 2017-6-27 20:50
 categories: Linux
 tags: [Linux]
-top: true
 ---
 
 * content
